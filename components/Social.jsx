@@ -1,12 +1,15 @@
-import Link from 'next/link';
+import Link from "next/link";
 
-import { FaGithub, FaLinkedin, FaYoutube, FaTwitter } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaYoutube, FaTwitter } from "react-icons/fa";
 
 const socials = [
-  { icon: <FaGithub />, path: '' },
-  { icon: <FaLinkedin />, path: '' },
-  { icon: <FaYoutube />, path: '' },
-  { icon: <FaTwitter />, path: '' },
+  { icon: <FaGithub />, path: "https://github.com/miguelbtcode" },
+  {
+    icon: <FaLinkedin />,
+    path: "https://www.linkedin.com/in/miguel-barreto-torres-2b6b8a1b6/",
+  },
+  // { icon: <FaYoutube />, path: "" },
+  // { icon: <FaTwitter />, path: "" },
 ];
 
 const Social = ({ containerStyles, iconStyles }) => {

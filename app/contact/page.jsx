@@ -12,28 +12,23 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import {
-  FaPhone,
-  FaEnvelope,
-  FaMapMarkerAlt,
-  FaPhoneAlt,
-} from "react-icons/fa";
+import { FaEnvelope, FaMapMarkerAlt, FaPhoneAlt } from "react-icons/fa";
 import { motion } from "framer-motion";
 
 const info = [
   {
     icon: <FaPhoneAlt />,
-    title: "Phone",
+    title: "Teléfono",
     description: "(+51) 928 799 438",
   },
   {
     icon: <FaEnvelope />,
-    title: "Email",
+    title: "Correo",
     description: "mabt2206@gmail.com",
   },
   {
     icon: <FaMapMarkerAlt />,
-    title: "Address",
+    title: "Ubicación",
     description: "Lima, Peru",
   },
 ];
@@ -53,7 +48,7 @@ const Contact = () => {
           {/* form */}
           <div className="xl:w-[54%] order-2 xl:order-none">
             <form className="flex flex-col gap-6 p-10 bg-[#27272c] rounded-xl">
-              <h3 className="text-4xl text-accent">Let's work together</h3>
+              <h3 className="text-4xl text-accent">Trabajemos juntos</h3>
               <p className="text-white/60">
                 Lorem ipsum dolor sit amet consectetur, adipisicing elit.
                 Pariatur at id dolore dolor quae voluptate est quod culpa atque
@@ -62,33 +57,33 @@ const Contact = () => {
               </p>
               {/* input */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <Input type="firstname" placeholder="Firstname" />
-                <Input type="lastname" placeholder="Lastname" />
-                <Input type="email" placeholder="Email address" />
-                <Input type="phone" placeholder="Phone number" />
+                <Input type="firstname" placeholder="Nombre" />
+                <Input type="lastname" placeholder="Apellido" />
+                <Input type="email" placeholder="Correo electrónico" />
+                <Input type="phone" placeholder="Teléfono" />
               </div>
               {/* select */}
               <Select>
                 <SelectTrigger className="w-full">
-                  <SelectValue placeholder="Select a service" />
+                  <SelectValue placeholder="Seleccione un servicio" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectGroup>
-                    <SelectLabel>Select a service</SelectLabel>
-                    <SelectItem value="est">Web Development</SelectItem>
-                    <SelectItem value="cst">Fullstack Development</SelectItem>
-                    <SelectItem value="mst">Tech Lead</SelectItem>
+                    <SelectLabel>Seleccione un servicio</SelectLabel>
+                    <SelectItem value="cst">Desarrollo Fullstack</SelectItem>
+                    <SelectItem value="mst">Líder Técnico Fullstack</SelectItem>
+                    <SelectItem value="est">Desarrollo .NET</SelectItem>
                   </SelectGroup>
                 </SelectContent>
               </Select>
               {/* textarea */}
               <Textarea
                 className="h-[200px]"
-                placeholder="Type your message here."
+                placeholder="Escribe tu mensaje aquí."
               />
               {/* btn */}
               <Button size="md" className="max-w-40">
-                Send Message
+                Enviar Mensaje
               </Button>
             </form>
           </div>

@@ -10,28 +10,35 @@ import {
 import {
   SiDotnet,
   SiGooglecloud,
+  SiMui,
+  SiNextdotjs,
+  SiMongodb,
+  SiPostgresql,
+  SiBlazor,
 } from "react-icons/si";
 
+import { VscAzure } from "react-icons/vsc";
+
+import { DiMsqlServer, DiRedis } from "react-icons/di";
+import { GrMysql } from "react-icons/gr";
+
 export const about = {
-  title: "About me",
+  title: "Sobre Mí 🧑🏻‍💻",
   description: `
-      I am a software developer with a passion for creating user-friendly
-      and efficient web applications. I have a strong foundation in HTML,
-      CSS, and JavaScript, and I am proficient in React, Next.js, and Tailwind CSS.
-      I am a quick learner and I am always looking for new challenges to tackle.
+      Soy un desarrollador Full Stack .NET con amplia experiencia en la creación de aplicaciones web escalables y eficientes. Domino C#, ASP.NET, React y Next.js, enfocándome en arquitectura, rendimiento y buenas prácticas. Siempre busco innovar y mejorar en cada proyecto.
     `,
   info: [
     {
-      fieldName: "Name",
+      fieldName: "Nombre",
       fieldValue: "Miguel Barreto",
     },
     {
-      fieldName: "Phone",
+      fieldName: "Teléfono",
       fieldValue: "(+51) 928 799 438",
     },
     {
-      fieldName: "Experience",
-      fieldValue: "4+ years",
+      fieldName: "Experiencia",
+      fieldValue: "4+ años",
     },
     {
       fieldName: "LinkedIn",
@@ -39,20 +46,20 @@ export const about = {
         "https://www.linkedin.com/in/miguel-barreto-torres-2b6b8a1b6/",
     },
     {
-      fieldName: "Nationality",
-      fieldValue: "Peruvian",
+      fieldName: "Nacionalidad",
+      fieldValue: "Peruano",
     },
     {
-      fieldName: "Email",
+      fieldName: "Correo",
       fieldValue: "mabt2206@gmail.com",
     },
     {
       fieldName: "Freelance",
-      fieldValue: "Available",
+      fieldValue: "Disponible",
     },
     {
-      fieldName: "Languages",
-      fieldValue: "Spanish, English",
+      fieldName: "Idiomas",
+      fieldValue: "Español, Inglés",
     },
   ],
 };
@@ -60,9 +67,9 @@ export const about = {
 // experience data
 export const experience = {
   icon: "/assets/resume/badge.svg",
-  title: "Mi experiencia",
+  title: "Mi Experiencia 💼",
   description:
-    "Fullstack developer con más de 4 años de experiencia en el desarrollo backend y frontend, especializado en la creación de aplicaciones web robustas y escalables. Apasionado por la innovación y la mejora continua.",
+    "Fullstack developer con más de 4 años de experiencia en el desarrollo backend y frontend, especializado en la creación de aplicaciones web robustas y escalables.",
   items: [
     {
       company: "Kreante Tech. Solutions",
@@ -95,7 +102,7 @@ export const experience = {
 // education data
 export const education = {
   icon: "/assets/resume/cap.svg",
-  title: "Mi Educación",
+  title: "Mi Educación 🎓",
   description:
     "Mi educación en la Ingeniería de Software me ha brindado una base sólida en el desarrollo de soluciones empresariales. Durante mis estudios, trabajé en proyectos que reforzaron mi capacidad analítica e innovadora.",
   items: [
@@ -124,9 +131,9 @@ export const education = {
 
 // skills data
 export const skills = {
-  title: "Mis Habilidades",
+  title: "Mis Habilidades 📌",
   description:
-    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.",
+    "Tecnologías que he utilizado en proyectos profesionales y personales a lo largo de mi experiencia.",
   skillList: [
     {
       icon: <FaHtml5 />,
@@ -149,6 +156,18 @@ export const skills = {
       name: "React",
     },
     {
+      icon: <SiBlazor />,
+      name: "Blazor",
+    },
+    {
+      icon: <SiNextdotjs />,
+      name: "Next.js",
+    },
+    {
+      icon: <SiMui />,
+      name: "Material UI",
+    },
+    {
       icon: <FaNodeJs />,
       name: "NodeJs",
     },
@@ -158,7 +177,31 @@ export const skills = {
     },
     {
       icon: <FaAws />,
-      name: "AWS",
+      name: "Amazon Web Services",
+    },
+    {
+      icon: <VscAzure />,
+      name: "Azure",
+    },
+    {
+      icon: <GrMysql />,
+      name: "MySQL",
+    },
+    {
+      icon: <DiMsqlServer />,
+      name: "SQL Server",
+    },
+    {
+      icon: <SiMongodb />,
+      name: "MongoDB",
+    },
+    {
+      icon: <SiPostgresql />,
+      name: "PostgreSQL",
+    },
+    {
+      icon: <DiRedis />,
+      name: "Redis Caché",
     },
   ],
 };
