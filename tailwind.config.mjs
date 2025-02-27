@@ -45,6 +45,8 @@ export default {
         },
       },
       fontSize: {
+        "0.25xl": "0.875rem",
+        "0.5xl": "1.125rem",
         "1.5xl": "1.375rem",
       },
     },
