@@ -6,29 +6,29 @@ import {
   SheetTrigger,
   SheetTitle,
 } from "@/components/ui/sheet";
-import { usePathname } from "next/navigation";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { CiMenuFries } from "react-icons/ci";
 
 const links = [
   {
-    name: "home",
+    name: "inicio",
     path: "/",
   },
   {
-    name: "services",
+    name: "servicios",
     path: "/services",
   },
   {
-    name: "resume",
+    name: "currículum",
     path: "/resume",
   },
   {
-    name: "work",
+    name: "proyectos",
     path: "/work",
   },
   {
-    name: "contact",
+    name: "contacto",
     path: "/contact",
   },
 ];

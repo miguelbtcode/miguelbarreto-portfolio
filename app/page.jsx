@@ -13,7 +13,8 @@ const Home = () => {
           <div className="text-center xl:text-left xl:w-[60%] order-2 xl:order-none">
             <span className="text-xl">Software Engineer</span>
             <h1 className="h1 mb-6">
-              Hola, soy
+              <span>Hola,</span>
+              <span className="ml-2">soy</span>
               <br />
               <span className="text-accent">Miguel Barreto</span>
             </h1>
