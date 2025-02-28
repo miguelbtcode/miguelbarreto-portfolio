@@ -14,9 +14,11 @@ const Home = () => {
             <span className="text-xl">Software Engineer</span>
             <h1 className="h1 mb-6">
               <span>Hola,</span>
-              <span className="ml-2">soy</span>
+              <span className="ml-1 xl:ml-2">soy</span>
               <br />
-              <span className="text-accent">Miguel Barreto</span>
+              <span className="text-accent">
+                Miguel<span className="ml-4 xl:ml-6">Barreto</span>
+              </span>
             </h1>
             <p className="max-w-[500px] mb-9 text-white/80">
               Me destaco por crear experiencias digitales elegantes y soy
