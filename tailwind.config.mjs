@@ -49,6 +49,9 @@ export default {
         "0.5xl": "1.125rem",
         "1.5xl": "1.375rem",
       },
+      animation: {
+        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+      }
     },
   },
   plugins: [require('tailwindcss-animate')],

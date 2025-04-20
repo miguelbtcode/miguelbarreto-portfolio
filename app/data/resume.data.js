@@ -75,11 +75,15 @@ export const experience = {
       company: "Kreante Tech. Solutions",
       position: "Teach Lead .NET",
       duration: "Mar. 2024 - Ene. 2025",
+      certificate: "/path/to/certificate.jpg", // Optional
+      certificateDescription: "Descripción adicional del certificado" // Optional
     },
     {
       company: "Banco de Crédito del Perú",
       position: ".NET Software Engineer",
       duration: "Mar. 2023 - Feb. 2024",
+      certificate: "/assets/resume/bcp-cert-experience.pdf", // Optional
+      certificateDescription: "Descripción adicional del certificado" // Optional
     },
     {
       company: "Indra Minsait",
