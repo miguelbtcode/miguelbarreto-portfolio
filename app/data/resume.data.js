@@ -73,31 +73,31 @@ export const experience = {
   items: [
     {
       company: "Kreante Tech. Solutions",
-      position: "Teach Lead .NET",
+      position: "Full-stack Developer Sr.",
       duration: "Mar. 2024 - Ene. 2025",
       certificate: "/path/to/certificate.jpg", // Optional
       certificateDescription: "Descripción adicional del certificado" // Optional
     },
     {
       company: "Banco de Crédito del Perú",
-      position: ".NET Software Engineer",
+      position: "NET Software Engineer",
       duration: "Mar. 2023 - Feb. 2024",
       certificate: "/assets/resume/bcp-cert-experience.pdf", // Optional
       certificateDescription: "Descripción adicional del certificado" // Optional
     },
     {
       company: "Indra Minsait",
-      position: "Full Stack Developer Ssr.",
+      position: "Full-stack Developer Ssr.",
       duration: "Oct. 2022 - Feb. 2023",
     },
     {
       company: "BD Capital S.A.C",
-      position: "Full Stack Developer Jr.",
+      position: "Full-stack Developer Jr.",
       duration: "Sep. 2021 - Oct. 2022",
     },
     {
       company: "Resindesa S.A.C",
-      position: "Full Stack Developer Jr.",
+      position: "Full-stack Developer Jr.",
       duration: "Mar. 2021 - Ago. 2021",
     },
   ],

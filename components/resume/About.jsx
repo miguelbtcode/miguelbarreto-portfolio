@@ -34,7 +34,7 @@ const About = () => {
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5 }}
-              className="text-white/80 text-center xl:text-left leading-relaxed bg-[#27272c] p-6 rounded-xl"
+              className="text-white/80 text-center xl:text-left leading-relaxed bg-[#232329] p-6 rounded-xl"
             >
               {about.description}
             </motion.p>
@@ -50,9 +50,12 @@ const About = () => {
                       href={linkedinProfile}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-3 bg-[#27272c] p-4 rounded-lg hover:bg-[#2A2A2A] transition-all group"
+                      className="flex items-center justify-center gap-4 bg-[#232329] p-4 rounded-lg hover:bg-[#2f2f38] transition-all group"
                     >
-                      <LinkedinIcon className="text-green-500 group-hover:text-green-400 transition-colors" />
+                      <LinkedinIcon
+                        className="text-green-500 group-hover:text-green-400 transition-colors hidden md:block"
+                        size={32}
+                      />
                       <div>
                         <p className="text-white/60 text-sm">LinkedIn</p>
                         <p className="font-semibold text-white group-hover:text-green-400 transition-colors">
@@ -63,30 +66,65 @@ const About = () => {
                   );
                 }
 
+                // Special handling for Email to improve responsiveness
+                if (item.fieldName === "Correo") {
+                  return (
+                    <div
+                      key={index}
+                      className="flex items-center justify-center gap-4 bg-[#232329] p-4 rounded-lg"
+                    >
+                      <MailIcon
+                        className="text-green-500 flex-shrink-0 hidden md:block"
+                        size={32}
+                      />
+                      <div className="min-w-0">
+                        <p className="text-white/60 text-sm text-center">
+                          Correo
+                        </p>
+                        <p className="font-semibold text-white break-words">
+                          {item.fieldValue}
+                        </p>
+                      </div>
+                    </div>
+                  );
+                }
+
                 // Default rendering for other items
                 return (
                   <div
                     key={index}
-                    className="flex items-center gap-3 bg-[#27272c] p-4 rounded-lg"
+                    className="flex items-center justify-center gap-4 bg-[#232329] p-4 rounded-lg"
                   >
                     {/* Dynamic Icons */}
                     {item.fieldName === "Nombre" && (
-                      <UserIcon className="text-green-500" />
+                      <UserIcon
+                        className="text-green-500 hidden md:block"
+                        size={32}
+                      />
                     )}
                     {item.fieldName === "Teléfono" && (
-                      <PhoneIcon className="text-green-500" />
+                      <PhoneIcon
+                        className="text-green-500 hidden md:block"
+                        size={32}
+                      />
                     )}
                     {item.fieldName === "Experiencia" && (
-                      <BriefcaseIcon className="text-green-500" />
+                      <BriefcaseIcon
+                        className="text-green-500 hidden md:block"
+                        size={32}
+                      />
                     )}
                     {item.fieldName === "Nacionalidad" && (
-                      <MapPinIcon className="text-green-500" />
-                    )}
-                    {item.fieldName === "Correo" && (
-                      <MailIcon className="text-green-500" />
+                      <MapPinIcon
+                        className="text-green-500 hidden md:block"
+                        size={32}
+                      />
                     )}
                     {item.fieldName === "Idiomas" && (
-                      <GlobeIcon className="text-green-500" />
+                      <GlobeIcon
+                        className="text-green-500 hidden md:block"
+                        size={32}
+                      />
                     )}
 
                     <div>

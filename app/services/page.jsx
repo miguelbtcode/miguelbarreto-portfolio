@@ -9,7 +9,7 @@ const services = [
     num: "01",
     title: "Fullstack Development",
     description:
-      "Desarrollo integral de aplicaciones web utilizando tecnologías .NET Core, React y Angular. Creo soluciones escalables y eficientes, integrando frontend y backend con arquitecturas modernas y patrones de diseño SOLID.",
+      "Desarrollo web end-to-end con .NET Core, React y Angular. Creo soluciones escalables integrando frontend y backend con arquitecturas modernas.",
     href: "",
     icon: "💻",
   },
@@ -17,7 +17,7 @@ const services = [
     num: "02",
     title: "Backend Developer",
     description:
-      "Especialista en desarrollo backend con .NET Core y C#, optimizando rendimiento y escalabilidad. Experto en diseño de microservicios, implementación de APIs REST y optimización de consultas en SQL Server y PostgreSQL.",
+      "Especialista en .NET Core y C#. Diseño microservicios, implemento APIs REST y optimizo bases de datos SQL Server y PostgreSQL.",
     href: "",
     icon: "🔧",
   },
@@ -25,7 +25,7 @@ const services = [
     num: "03",
     title: "DevOps Engineer",
     description:
-      "Implemento estrategias de integración continua y despliegue automatizado utilizando Azure DevOps, Docker y Google Cloud. Reduzco tiempos de entrega, mejoro la eficiencia operativa y garantizo la calidad del software.",
+      "Implemento CI/CD con Azure DevOps, Docker y Google Cloud. Automatizo procesos y reduzco tiempos de entrega en desarrollo de software.",
     href: "",
     icon: "🚀",
   },
@@ -33,7 +33,7 @@ const services = [
     num: "04",
     title: "Frontend Developer",
     description:
-      "Desarrollo interfaces de usuario dinámicas y responsivas con React y Angular. Enfocado en crear experiencias de usuario intuitivas, optimizando el rendimiento y la accesibilidad de aplicaciones web modernas.",
+      "Desarrollo interfaces dinámicas con React y Angular. Creo experiencias de usuario intuitivas, optimizando rendimiento de aplicaciones web.",
     href: "",
     icon: "🎨",
   },
@@ -55,7 +55,7 @@ const Services = () => {
             },
           }}
           viewport={{ once: true }}
-          className="grid grid-cols-1 md:grid-cols-2 gap-[60px] relative"
+          className="grid grid-cols-1 md:grid-cols-2 gap-[50px] relative"
         >
           {services.map((service, index) => {
             return (
@@ -77,13 +77,13 @@ const Services = () => {
                 className="relative z-10 flex flex-col justify-between group 
                 bg-[#1E1E1E] p-8 rounded-2xl border border-white/10 
                 hover:border-accent/30 transition-all duration-500 
-                hover:shadow-2xl hover:shadow-accent/20 min-h-[400px]"
+                hover:shadow-2xl hover:shadow-accent/20 min-h-[300px]"
               >
                 {/* top */}
                 <div>
                   <div className="w-full flex justify-between items-center mb-6">
                     <div
-                      className="text-6xl font-extrabold text-transparent 
+                      className="text-5xl font-extrabold text-transparent 
                     bg-clip-text bg-gradient-to-r from-white/30 to-white/70 
                     group-hover:from-accent/50 group-hover:to-accent/80 
                     transition-all duration-500"
@@ -101,11 +101,11 @@ const Services = () => {
                     </Link>
                   </div>
                   {/* Service title with icon */}
-                  <div className="h-[110px] flex flex-col justify-center">
+                  <div className="h-[60px] flex flex-col justify-center">
                     <div className="flex items-center gap-4">
                       <span className="text-4xl">{service.icon}</span>
                       <h2
-                        className="text-[42px] font-bold leading-none text-white
+                        className="text-[40px] font-bold leading-none text-white
                       group-hover:text-accent transition-all duration-500 
                       break-words"
                       >

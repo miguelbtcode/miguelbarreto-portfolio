@@ -1,15 +1,21 @@
 import { TabsContent } from "@/components/ui/tabs";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { education } from "@/app/data/resume.data";
+import { motion } from "framer-motion";
 
 const Education = () => {
   return (
     <TabsContent value="education" className="w-full">
       <div className="flex flex-col gap-[30px] text-center xl:text-left">
         <h3 className="text-4xl font-bold">{education.title}</h3>
-        <p className="text-white/60 mx-auto xl:mx-0 text-center xl:text-justify">
+        <motion.p
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5 }}
+          className="text-white/80 text-center xl:text-justify leading-relaxed bg-[#232329] p-6 rounded-xl"
+        >
           {education.description}
-        </p>
+        </motion.p>
         <ScrollArea className="h-[400px]">
           <ul className="grid grid-cols-1 lg:grid-cols-2 gap-[30px]">
             {education.items.map((item, index) => {
