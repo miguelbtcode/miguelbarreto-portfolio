@@ -72,33 +72,128 @@ export const experience = {
     "Fullstack developer con más de 4 años de experiencia en el desarrollo backend y frontend, especializado en la creación de aplicaciones web robustas y escalables.",
   items: [
     {
+      company: "LILAB",
+      position: "Full-stack Developer",
+      duration: "Jan 2025 - Actualmente",
+      certificate: "/assets/resume/kreante-cert-experience.pdf",
+      description:
+        "Desarrollo de soluciones fullstack para el cliente Progreso (Chile), aplicando arquitecturas modernas y metodologías ágiles.",
+      achievements: [
+        "Desarrollo en curso de aplicaciones web de alta disponibilidad",
+        "Implementación de prácticas DevOps y automatización de procesos",
+      ],
+      technologies: [
+        "NET Core",
+        "React",
+        "AWS",
+        "DevOps",
+        "MongoDB",
+        "Microservices",
+      ],
+      color: "purple",
+    },
+    {
       company: "Kreante Tech. Solutions",
       position: "Full-stack Developer Sr.",
-      duration: "Mar. 2024 - Ene. 2025",
-      certificate: "/path/to/certificate.jpg", // Optional
-      certificateDescription: "Descripción adicional del certificado" // Optional
+      duration: "Mar 2024 - Ene 2025",
+      certificate: "/assets/resume/kreante-cert-experience.pdf",
+      description:
+        "Optimización de arquitectura backend para Laive S.A.C, mejorando rendimiento y escalabilidad mientras se reducían costos de infraestructura.",
+      achievements: [
+        "Reducción del 30% en tiempos de respuesta mediante optimización de arquitectura",
+        "Implementación de soluciones con .NET y Vue.js reduciendo costos de infraestructura en 15%",
+        "Diseño de estrategias CI/CD reduciendo tiempos de entrega en 40%",
+      ],
+      technologies: [
+        "NET Core",
+        "Vue.js",
+        "Google Cloud",
+        "CI/CD",
+        "SQL Server",
+        "Cloud Functions",
+      ],
+      color: "blue",
     },
     {
       company: "Banco de Crédito del Perú",
       position: "NET Software Engineer",
-      duration: "Mar. 2023 - Feb. 2024",
+      duration: "Mar 2023 - Mar 2024",
       certificate: "/assets/resume/bcp-cert-experience.pdf", // Optional
-      certificateDescription: "Descripción adicional del certificado" // Optional
+      description:
+        "Modernización de aplicaciones SWIFT y sistemas de estados de cuenta bancarios, con migración a arquitecturas Cloud y optimización de procesos ETL.",
+      achievements: [
+        "Implementación de microservicio GPI en OCP con .NET, reduciendo tiempos de procesamiento en 35%",
+        "Liderazgo en la migración del sistema EECC a .NET y Cloud, reduciendo costos de mantenimiento en 40%",
+      ],
+      technologies: [
+        "NET Core",
+        "Angular",
+        "SQL Server",
+        "Python",
+        "Azure",
+        "Microservices",
+        "OCP",
+        "ETL",
+      ],
+      color: "green",
     },
     {
       company: "Indra Minsait",
       position: "Full-stack Developer Ssr.",
-      duration: "Oct. 2022 - Feb. 2023",
+      duration: "Oct 2022 - Feb 2023",
+      description:
+        "Desarrollo y optimización de sistemas de gestión de pólizas para Mapfre Seguros y Reaseguros, con foco en rendimiento y escalabilidad.",
+      achievements: [
+        "Reducción de tiempo de procesamiento en AfilCobro en 35% mediante mejoras en base de datos",
+        "Disminución de incidencias en TronWeb en 30% tras refactorización de módulos clave",
+      ],
+      technologies: [
+        "NET",
+        "React",
+        "SQL Server",
+        "Oracle PL/SQL",
+        "Swagger",
+        "REST APIs",
+      ],
+      color: "orange",
     },
     {
-      company: "BD Capital S.A.C",
+      company: "BDCapital",
       position: "Full-stack Developer Jr.",
-      duration: "Sep. 2021 - Oct. 2022",
+      duration: "Sep 2021 - Oct 2022",
+      description:
+        "Implementación de mejoras en sistemas SOTI y SIF para optimizar la gestión de operaciones financieras.",
+      achievements: [
+        "Optimización de rendimiento en SOTI y SIF, reduciendo tiempos de carga en 30%",
+        "Reducción de incidencias en 25% con nuevas funcionalidades en Blazor y .NET",
+      ],
+      technologies: [
+        "NET",
+        "React",
+        "SQL Server",
+        "Blazor",
+        "Financial Systems",
+      ],
+      color: "red",
     },
     {
       company: "Resindesa S.A.C",
       position: "Full-stack Developer Jr.",
-      duration: "Mar. 2021 - Ago. 2021",
+      duration: "Mar 2021 - Ago 2021",
+      description:
+        "Desarrollo de sitios web personalizados para sectores de construcción y publicidad, con optimización de generación de reportes.",
+      achievements: [
+        "Reducción de tiempos de generación de reportes en JasperReports en un 25%",
+        "Desarrollo de soluciones web a medida para clientes de sectores exigentes",
+      ],
+      technologies: [
+        "NET",
+        "React JS",
+        "JasperReports",
+        "SQL",
+        "Web Development",
+      ],
+      color: "yellow",
     },
   ],
 };
