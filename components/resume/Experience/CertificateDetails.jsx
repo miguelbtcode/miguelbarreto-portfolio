@@ -1,4 +1,3 @@
-// CertificateDetails.jsx - Versión mejorada con animaciones y detalles de experiencia
 import React, { useState, useEffect } from "react";
 import {
   ChevronLeft,
@@ -33,11 +32,16 @@ const CertificateDetails = ({
   downloadPDF,
   toggleInfoPanel,
   isMobile,
+  isLandscape,
 }) => {
-  const [expandedSection, setExpandedSection] = useState(null);
+  // Control each section independently
+  const [expandedSections, setExpandedSections] = useState({
+    technologies: true,
+    achievements: true,
+  });
   const [animate, setAnimate] = useState(false);
 
-  // Activar animaciones después de que el componente se monte
+  // Activate animations after component mount
   useEffect(() => {
     const timer = setTimeout(() => {
       setAnimate(true);
@@ -45,20 +49,25 @@ const CertificateDetails = ({
     return () => clearTimeout(timer);
   }, []);
 
+  // Function to toggle section state
   const toggleSection = (section) => {
-    setExpandedSection(expandedSection === section ? null : section);
+    setExpandedSections((prev) => ({
+      ...prev,
+      [section]: !prev[section],
+    }));
   };
 
+  // Get appropriate tech icon based on technology name
   const getTechIcon = (tech) => {
     const techIcons = {
-      // .NET y lenguajes relacionados
+      // .NET and related languages
       "NET Core": <Cpu className="h-3 w-3 mr-1" />,
       NET: <Cpu className="h-3 w-3 mr-1" />,
       "C#": <Cpu className="h-3 w-3 mr-1" />,
       "ASP.NET": <Cpu className="h-3 w-3 mr-1" />,
       Blazor: <Cpu className="h-3 w-3 mr-1" />,
 
-      // Frontend y JavaScript
+      // Frontend and JavaScript
       Angular: <MonitorSmartphone className="h-3 w-3 mr-1" />,
       React: <MonitorSmartphone className="h-3 w-3 mr-1" />,
       "React JS": <MonitorSmartphone className="h-3 w-3 mr-1" />,
@@ -66,28 +75,28 @@ const CertificateDetails = ({
       TypeScript: <FileJson className="h-3 w-3 mr-1" />,
       JavaScript: <FileJson className="h-3 w-3 mr-1" />,
 
-      // Lenguajes adicionales
+      // Additional languages
       Python: <Code className="h-3 w-3 mr-1" />,
 
-      // Bases de datos
+      // Databases
       "SQL Server": <Database className="h-3 w-3 mr-1" />,
       PostgreSQL: <Database className="h-3 w-3 mr-1" />,
       MongoDB: <Boxes className="h-3 w-3 mr-1" />,
       "Oracle PL/SQL": <Database className="h-3 w-3 mr-1" />,
       SQL: <Database className="h-3 w-3 mr-1" />,
 
-      // Cloud y infraestructura
+      // Cloud and infrastructure
       Azure: <Cloud className="h-3 w-3 mr-1" />,
       "Google Cloud": <Cloud className="h-3 w-3 mr-1" />,
       "Cloud Functions": <Cloud className="h-3 w-3 mr-1" />,
       Docker: <Box className="h-3 w-3 mr-1" />,
 
-      // DevOps y CI/CD
+      // DevOps and CI/CD
       "CI/CD": <GitBranch className="h-3 w-3 mr-1" />,
       "Azure DevOps": <Rocket className="h-3 w-3 mr-1" />,
       DevOps: <Rocket className="h-3 w-3 mr-1" />,
 
-      // Arquitectura y frameworks
+      // Architecture and frameworks
       Microservices: <Box className="h-3 w-3 mr-1" />,
       OCP: <Server className="h-3 w-3 mr-1" />,
       ETL: <ArrowLeftRight className="h-3 w-3 mr-1" />,
@@ -101,6 +110,7 @@ const CertificateDetails = ({
     return techIcons[tech] || <Code className="h-3 w-3 mr-1" />;
   };
 
+  // Get color for tech badge
   const getTechBadgeColor = (tech) => {
     const techCategories = {
       "NET Core": "bg-blue-600",
@@ -140,6 +150,7 @@ const CertificateDetails = ({
     return techCategories[tech] || "bg-gray-600";
   };
 
+  // Animation variants
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -172,10 +183,16 @@ const CertificateDetails = ({
   return (
     <div
       className={`${
-        showInfo ? "block" : "hidden md:block"
-      } md:w-1/3 flex flex-col bg-[#121212] border-t md:border-t-0 md:border-l border-gray-700 h-full overflow-hidden`}
+        showInfo || (isMobile && isLandscape) ? "block" : "hidden md:block"
+      } ${
+        isMobile && isLandscape ? "w-1/2" : "md:w-1/3"
+      } flex flex-col bg-[#121212] border-t md:border-t-0 md:border-l border-gray-700 h-full overflow-hidden`}
       style={{
-        maxHeight: isMobile ? "calc(100vh - 60px)" : "600px",
+        maxHeight: isMobile
+          ? isLandscape
+            ? "calc(100vh - 60px)"
+            : "calc(100vh - 60px)"
+          : "600px",
       }}
     >
       <motion.div
@@ -186,7 +203,9 @@ const CertificateDetails = ({
       >
         <h2 className="text-xl font-bold text-white">{item.position}</h2>
         <div className="flex items-center mt-2">
-          <div className={`w-2 h-2 bg-${item.color}-500 rounded-full`}></div>
+          <div
+            className={`w-2 h-2 bg-${item.color || "green"}-500 rounded-full`}
+          ></div>
           <p className="text-white/80 ml-2">{item.company}</p>
         </div>
         <p className="text-green-500 font-medium mt-2 flex items-center">
@@ -219,7 +238,52 @@ const CertificateDetails = ({
           </motion.div>
         </AnimatePresence>
 
-        <AnimatePresence>
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate={animate ? "visible" : "hidden"}
+          className="bg-[#1A1A1A] p-4 rounded-lg border border-gray-800/50 shadow-sm"
+        >
+          <div
+            className="font-medium text-white text-lg mb-2 flex justify-between items-center cursor-pointer"
+            onClick={() => toggleSection("technologies")}
+          >
+            <motion.div variants={itemVariants} className="flex items-center">
+              <Code className="h-5 w-5 mr-2 text-green-500" />
+              Tecnologías
+            </motion.div>
+            {expandedSections.technologies ? (
+              <ChevronUp className="h-5 w-5 text-green-500" />
+            ) : (
+              <ChevronDown className="h-5 w-5 text-green-500" />
+            )}
+          </div>
+
+          <div
+            className={`overflow-hidden transition-all duration-300 ease-in-out ${
+              expandedSections.technologies
+                ? "max-h-96 opacity-100"
+                : "max-h-0 opacity-0"
+            }`}
+          >
+            <div className="flex flex-wrap gap-2 mt-2">
+              {item.technologies?.map((tech, index) => (
+                <motion.span
+                  key={index}
+                  variants={techBadgeVariants}
+                  className={`${getTechBadgeColor(
+                    tech
+                  )} text-xs px-2 py-1 rounded-full inline-flex items-center shadow-sm`}
+                >
+                  {getTechIcon(tech)}
+                  {tech}
+                </motion.span>
+              ))}
+            </div>
+          </div>
+        </motion.div>
+
+        {item.achievements?.length > 0 && (
           <motion.div
             variants={containerVariants}
             initial="hidden"
@@ -228,100 +292,40 @@ const CertificateDetails = ({
           >
             <div
               className="font-medium text-white text-lg mb-2 flex justify-between items-center cursor-pointer"
-              onClick={() => toggleSection("technologies")}
+              onClick={() => toggleSection("achievements")}
             >
               <motion.div variants={itemVariants} className="flex items-center">
-                <Code className="h-5 w-5 mr-2 text-green-500" />
-                Tecnologías
+                <Award className="h-5 w-5 mr-2 text-green-500" />
+                Logros
               </motion.div>
-              {expandedSection === "technologies" ? (
+              {expandedSections.achievements ? (
                 <ChevronUp className="h-5 w-5 text-green-500" />
               ) : (
                 <ChevronDown className="h-5 w-5 text-green-500" />
               )}
             </div>
 
-            <AnimatePresence>
-              {(expandedSection === "technologies" || !isMobile) && (
-                <motion.div
-                  initial={{ height: 0, opacity: 0 }}
-                  animate={{ height: "auto", opacity: 1 }}
-                  exit={{ height: 0, opacity: 0 }}
-                  transition={{ duration: 0.3 }}
-                  className="overflow-hidden"
-                >
-                  <div className="flex flex-wrap gap-2 mt-2">
-                    {item.technologies.map((tech, index) => (
-                      <motion.span
-                        key={index}
-                        variants={techBadgeVariants}
-                        className={`${getTechBadgeColor(
-                          tech
-                        )} text-xs px-2 py-1 rounded-full inline-flex items-center shadow-sm`}
-                      >
-                        {getTechIcon(tech)}
-                        {tech}
-                      </motion.span>
-                    ))}
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </motion.div>
-        </AnimatePresence>
-
-        {item.achievements.length > 0 && (
-          <AnimatePresence>
-            <motion.div
-              variants={containerVariants}
-              initial="hidden"
-              animate={animate ? "visible" : "hidden"}
-              className="bg-[#1A1A1A] p-4 rounded-lg border border-gray-800/50 shadow-sm"
+            <div
+              className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                expandedSections.achievements
+                  ? "max-h-96 opacity-100"
+                  : "max-h-0 opacity-0"
+              }`}
             >
-              <div
-                className="font-medium text-white text-lg mb-2 flex justify-between items-center cursor-pointer"
-                onClick={() => toggleSection("achievements")}
-              >
-                <motion.div
-                  variants={itemVariants}
-                  className="flex items-center"
-                >
-                  <Award className="h-5 w-5 mr-2 text-green-500" />
-                  Logros
-                </motion.div>
-                {expandedSection === "achievements" ? (
-                  <ChevronUp className="h-5 w-5 text-green-500" />
-                ) : (
-                  <ChevronDown className="h-5 w-5 text-green-500" />
-                )}
-              </div>
-
-              <AnimatePresence>
-                {(expandedSection === "achievements" || !isMobile) && (
-                  <motion.div
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: "auto", opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.3 }}
-                    className="overflow-hidden"
+              <ul className="mt-2 space-y-2">
+                {item.achievements?.map((achievement, index) => (
+                  <motion.li
+                    key={index}
+                    variants={itemVariants}
+                    className="text-white/70 text-sm flex items-start"
                   >
-                    <ul className="mt-2 space-y-2">
-                      {item.achievements.map((achievement, index) => (
-                        <motion.li
-                          key={index}
-                          variants={itemVariants}
-                          className="text-white/70 text-sm flex items-start"
-                        >
-                          <div className="text-green-500 mr-2 mt-1">•</div>
-                          <span>{achievement}</span>
-                        </motion.li>
-                      ))}
-                    </ul>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </motion.div>
-          </AnimatePresence>
+                    <div className="text-green-500 mr-2 mt-1">•</div>
+                    <span>{achievement}</span>
+                  </motion.li>
+                ))}
+              </ul>
+            </div>
+          </motion.div>
         )}
 
         <AnimatePresence>
@@ -344,19 +348,25 @@ const CertificateDetails = ({
             >
               Este documento certifica la experiencia profesional en{" "}
               {item.company} durante el período {item.duration}.
-              {showInfo && isMobile ? (
+              {showInfo && isMobile && !isLandscape ? (
                 <span className="block mt-2 text-green-400 text-xs">
                   Toca el botón <ChevronLeft className="inline w-3 h-3" /> para
                   ver el certificado.
+                </span>
+              ) : isMobile && isLandscape ? (
+                <span className="block mt-2 text-green-400 text-xs">
+                  En modo horizontal puedes ver el certificado y los detalles
+                  simultáneamente.
                 </span>
               ) : (
                 <span>
                   {" "}
                   Usa los controles para navegar, ajustar el zoom, compartir o
                   descargar el documento.
-                  {isMobile && (
+                  {isMobile && !isLandscape && (
                     <span className="block mt-2 text-green-400 text-xs">
-                      El visor se adapta automáticamente a tu pantalla.
+                      Gira tu dispositivo horizontalmente para una mejor
+                      visualización.
                     </span>
                   )}
                 </span>
@@ -382,7 +392,7 @@ const CertificateDetails = ({
           <span className="font-medium">Descargar Certificado</span>
         </motion.button>
 
-        {isMobile && (
+        {isMobile && !isLandscape && (
           <motion.button
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}

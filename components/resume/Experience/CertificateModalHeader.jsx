@@ -1,12 +1,13 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { X, ChevronLeft, Info } from "lucide-react";
+import { X, Info, FileText } from "lucide-react";
 
 const CertificateModalHeader = ({
   onClose,
   toggleInfoPanel,
   showInfo,
   isMobile,
+  isLandscape,
   position,
   company,
 }) => {
@@ -15,54 +16,45 @@ const CertificateModalHeader = ({
       initial={{ opacity: 0, y: -10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3 }}
-      className="bg-[#0A0A0A] border-b border-gray-800 flex items-center justify-between p-3 sticky top-0 z-10"
+      className="bg-[#121212] border-b border-gray-800 h-[60px] flex items-center justify-between px-4 sticky top-0 z-10"
     >
-      {/* Left side of header */}
-      <div className="flex items-center">
-        {isMobile && showInfo ? (
-          <motion.button
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-            onClick={toggleInfoPanel}
-            className="mr-3 text-white/70 hover:text-white transition-colors"
-            aria-label="Ver PDF"
-          >
-            <ChevronLeft className="w-5 h-5" />
-          </motion.button>
-        ) : isMobile && !showInfo ? (
-          <motion.button
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-            onClick={toggleInfoPanel}
-            className="mr-3 text-white/70 hover:text-white transition-colors"
-            aria-label="Ver detalles"
-          >
-            <Info className="w-5 h-5" />
-          </motion.button>
-        ) : null}
-
-        <div className="flex items-center">
-          <motion.h2
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.1, duration: 0.3 }}
-            className="text-white text-base font-medium"
-          >
-            {isMobile ? "Certificado" : "Certificado de Trabajo"}
-          </motion.h2>
+      <div className="flex items-center space-x-2">
+        <div className="h-8 w-8 rounded-full bg-green-600 flex items-center justify-center">
+          <FileText className="h-4 w-4 text-white" />
         </div>
+        <div className="hidden sm:block">
+          <h3 className="text-white font-medium text-sm">{position}</h3>
+          <p className="text-gray-400 text-xs">{company}</p>
+        </div>
+        <h3 className="text-white font-medium sm:hidden">
+          Certificado de Trabajo
+        </h3>
       </div>
 
-      {/* Close button */}
-      <motion.button
-        whileHover={{ scale: 1.1, rotate: 90 }}
-        whileTap={{ scale: 0.9 }}
-        onClick={onClose}
-        className="text-white/70 hover:text-white transition-colors p-1"
-        aria-label="Cerrar modal"
-      >
-        <X className="w-6 h-6" />
-      </motion.button>
+      <div className="flex items-center space-x-2">
+        {isMobile && !isLandscape && (
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className={`p-2 rounded-full ${
+              showInfo ? "bg-green-600" : "bg-gray-800"
+            }`}
+            onClick={toggleInfoPanel}
+            aria-label={showInfo ? "View Certificate" : "View Details"}
+          >
+            <Info className="h-5 w-5 text-white" />
+          </motion.button>
+        )}
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          className="p-2 rounded-full bg-gray-800"
+          onClick={onClose}
+          aria-label="Close Modal"
+        >
+          <X className="h-5 w-5 text-white" />
+        </motion.button>
+      </div>
     </motion.div>
   );
 };

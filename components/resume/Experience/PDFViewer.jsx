@@ -1,12 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
+import { motion } from "framer-motion";
 import {
   ZoomIn,
   ZoomOut,
-  ChevronLeft,
-  ChevronRight,
+  Loader,
   Download,
-  Share2,
+  Share,
+  ArrowLeft,
+  ArrowRight,
+  RotateCcw,
 } from "lucide-react";
 
 // Worker for PDF.js
@@ -15,7 +18,7 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL(
   import.meta.url
 ).toString();
 
-const PDFViewer = ({ item, downloadPDF, isMobile }) => {
+const PDFViewer = ({ item, isMobile, isLandscape, downloadPDF }) => {
   const [numPages, setNumPages] = useState(null);
   const [pageNumber, setPageNumber] = useState(1);
   const [scale, setScale] = useState(1.0);
@@ -50,8 +53,22 @@ const PDFViewer = ({ item, downloadPDF, isMobile }) => {
     });
   }
 
+  const resetZoom = () => {
+    setScale(1.0);
+  };
+
   const handleShare = () => {
-    setShowShareOptions(!showShareOptions);
+    if (navigator.share && item.certificate) {
+      navigator
+        .share({
+          title: `${item.position} - ${item.company} Certificate`,
+          text: `Certificate of employment for ${item.position} at ${item.company}.`,
+          url: item.certificate,
+        })
+        .catch((error) => console.log("Error sharing", error));
+    } else {
+      setShowShareOptions(!showShareOptions);
+    }
   };
 
   const copyLink = () => {
@@ -79,19 +96,34 @@ const PDFViewer = ({ item, downloadPDF, isMobile }) => {
     }
   };
 
+  const mobileControlsTop = isMobile && !isLandscape;
+
   return (
-    <div className="relative w-full h-full bg-[#0A0A0A]">
+    <div className="relative flex-grow flex flex-col w-full h-full">
       {loading && (
-        <div className="absolute inset-0 flex items-center justify-center z-10 bg-[#0A0A0A]/90">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="absolute inset-0 flex items-center justify-center z-10 bg-[#0A0A0A]/90"
+        >
           <div className="flex flex-col items-center">
-            <div className="animate-spin h-10 w-10 rounded-full border-4 border-white/10 border-t-green-500 mb-4"></div>
-            <div className="text-white/70">Cargando PDF...</div>
+            <motion.div
+              animate={{ rotate: 360 }}
+              transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
+            >
+              <Loader className="h-10 w-10 text-green-500 mb-4" />
+            </motion.div>
+            <p className="text-white/70">Cargando PDF...</p>
           </div>
-        </div>
+        </motion.div>
       )}
 
       {showShareOptions && !loading && (
-        <div className="absolute bottom-16 right-4 z-30 bg-[#1A1A1A] rounded-lg shadow-lg overflow-hidden">
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="absolute bottom-16 right-4 z-30 bg-[#1A1A1A] rounded-lg shadow-lg overflow-hidden"
+        >
           <div className="p-2 flex flex-col gap-1">
             <button
               onClick={copyLink}
@@ -106,11 +138,11 @@ const PDFViewer = ({ item, downloadPDF, isMobile }) => {
               <span className="mr-2">✉️</span> Compartir por email
             </button>
           </div>
-        </div>
+        </motion.div>
       )}
 
       {/* PDF document container */}
-      <div className="w-full h-full overflow-auto flex items-start justify-center bg-white">
+      <div className="w-full h-full overflow-auto flex items-start justify-center bg-[#0A0A0A]">
         <Document
           file={item.certificate}
           onLoadSuccess={onDocumentLoadSuccess}
@@ -135,71 +167,109 @@ const PDFViewer = ({ item, downloadPDF, isMobile }) => {
       {/* Controls overlay */}
       {!loading && (
         <>
-          {/* Page navigation */}
-          <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 z-20 flex items-center bg-[#222]/80 px-3 py-1 rounded-full text-white/90 shadow-md">
-            <button
-              onClick={previousPage}
-              disabled={pageNumber <= 1}
-              className={`p-1 ${
-                pageNumber <= 1 ? "text-gray-500" : "hover:text-white"
-              }`}
-            >
-              <ChevronLeft className="w-5 h-5" />
-            </button>
-            <span className="mx-2 text-sm">
-              {pageNumber} / {numPages}
-            </span>
-            <button
-              onClick={nextPage}
-              disabled={pageNumber >= numPages}
-              className={`p-1 ${
-                pageNumber >= numPages ? "text-gray-500" : "hover:text-white"
-              }`}
-            >
-              <ChevronRight className="w-5 h-5" />
-            </button>
-          </div>
+          {/* Controls bar */}
+          <motion.div
+            initial={{ opacity: 0, y: mobileControlsTop ? -20 : 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: 0.3 }}
+            className={`${
+              mobileControlsTop ? "top-0 border-b" : "bottom-0 border-t"
+            } absolute left-0 right-0 bg-black/80 backdrop-blur-sm border-gray-800/50 flex justify-between items-center px-3 py-2 z-10`}
+          >
+            <div className="flex items-center space-x-2">
+              <button
+                onClick={previousPage}
+                disabled={pageNumber === 1}
+                className={`p-2 rounded-full ${
+                  pageNumber === 1
+                    ? "text-gray-500 bg-gray-800/30"
+                    : "text-white bg-gray-800 hover:bg-gray-700"
+                } transition-colors`}
+                aria-label="Previous Page"
+              >
+                <ArrowLeft className="h-4 w-4" />
+              </button>
 
-          {/* Scale indicator */}
-          <div className="absolute bottom-4 left-4 z-20 bg-[#222]/80 px-2 py-1 rounded-full text-white/80 text-xs">
-            {Math.round(scale * 100)}%
-          </div>
+              <span className="text-white text-sm">
+                {pageNumber} / {numPages}
+              </span>
 
-          {/* Action buttons */}
-          <div className="absolute bottom-4 right-4 z-20 flex space-x-2">
-            <button
-              onClick={() => handleZoom(-0.2)}
-              className="bg-[#222]/80 hover:bg-[#333]/80 p-2 rounded-full text-white/80 hover:text-white shadow-md"
-              title="Alejar"
-            >
-              <ZoomOut className="w-5 h-5" />
-            </button>
-            <button
-              onClick={() => handleZoom(0.2)}
-              className="bg-[#222]/80 hover:bg-[#333]/80 p-2 rounded-full text-white/80 hover:text-white shadow-md"
-              title="Acercar"
-            >
-              <ZoomIn className="w-5 h-5" />
-            </button>
-            <button
-              onClick={handleShare}
-              className={`bg-[#222]/80 hover:bg-[#333]/80 p-2 rounded-full ${
-                showShareOptions
-                  ? "text-green-500"
-                  : "text-white/80 hover:text-white"
-              } shadow-md`}
-              title="Compartir certificado"
-            >
-              <Share2 className="w-5 h-5" />
-            </button>
-            <button
-              onClick={downloadPDF}
-              className="bg-[#222]/80 hover:bg-[#333]/80 p-2 rounded-full text-white/80 hover:text-white shadow-md"
-              title="Descargar certificado"
-            >
-              <Download className="w-5 h-5" />
-            </button>
-          </div>
+              <button
+                onClick={nextPage}
+                disabled={pageNumber === numPages}
+                className={`p-2 rounded-full ${
+                  pageNumber === numPages
+                    ? "text-gray-500 bg-gray-800/30"
+                    : "text-white bg-gray-800 hover:bg-gray-700"
+                } transition-colors`}
+                aria-label="Next Page"
+              >
+                <ArrowRight className="h-4 w-4" />
+              </button>
+            </div>
+
+            <div className="flex items-center space-x-2">
+              <button
+                onClick={() => handleZoom(-0.2)}
+                disabled={scale <= 0.5}
+                className={`p-2 rounded-full ${
+                  scale <= 0.5
+                    ? "text-gray-500 bg-gray-800/30"
+                    : "text-white bg-gray-800 hover:bg-gray-700"
+                } transition-colors`}
+                aria-label="Zoom Out"
+              >
+                <ZoomOut className="h-4 w-4" />
+              </button>
+
+              <button
+                onClick={resetZoom}
+                className="p-2 rounded-full text-white bg-gray-800 hover:bg-gray-700 transition-colors"
+                aria-label="Reset Zoom"
+              >
+                <RotateCcw className="h-4 w-4" />
+              </button>
+
+              <button
+                onClick={() => handleZoom(0.2)}
+                disabled={scale >= 2.5}
+                className={`p-2 rounded-full ${
+                  scale >= 2.5
+                    ? "text-gray-500 bg-gray-800/30"
+                    : "text-white bg-gray-800 hover:bg-gray-700"
+                } transition-colors`}
+                aria-label="Zoom In"
+              >
+                <ZoomIn className="h-4 w-4" />
+              </button>
+
+              {!isMobile && (
+                <>
+                  <div className="h-5 w-px bg-gray-700 mx-1"></div>
+
+                  <button
+                    onClick={handleShare}
+                    className={`p-2 rounded-full ${
+                      showShareOptions
+                        ? "text-green-500 bg-gray-800"
+                        : "text-white bg-gray-800 hover:bg-gray-700"
+                    } transition-colors`}
+                    aria-label="Share Certificate"
+                  >
+                    <Share className="h-4 w-4" />
+                  </button>
+
+                  <button
+                    onClick={downloadPDF}
+                    className="p-2 rounded-full text-white bg-green-700 hover:bg-green-600 transition-colors"
+                    aria-label="Download Certificate"
+                  >
+                    <Download className="h-4 w-4" />
+                  </button>
+                </>
+              )}
+            </div>
+          </motion.div>
         </>
       )}
 
@@ -219,7 +289,6 @@ const PDFViewer = ({ item, downloadPDF, isMobile }) => {
           max-width: 100%;
           height: auto !important;
         }
-        /* Eliminar borde azul alrededor de elementos enfocados */
         button:focus,
         div:focus {
           outline: none;
