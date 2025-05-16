@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
 import { motion } from "framer-motion";
 import {
@@ -12,7 +12,6 @@ import {
   RotateCcw,
 } from "lucide-react";
 
-// Worker for PDF.js
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
   "pdfjs-dist/build/pdf.worker.min.mjs",
   import.meta.url
@@ -96,8 +95,6 @@ const PDFViewer = ({ item, isMobile, isLandscape, downloadPDF }) => {
     }
   };
 
-  const mobileControlsTop = isMobile && !isLandscape;
-
   return (
     <div className="relative flex-grow flex flex-col w-full h-full">
       {loading && (
@@ -122,7 +119,7 @@ const PDFViewer = ({ item, isMobile, isLandscape, downloadPDF }) => {
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          className="absolute bottom-16 right-4 z-30 bg-[#1A1A1A] rounded-lg shadow-lg overflow-hidden"
+          className="absolute top-16 right-4 z-30 bg-[#1A1A1A] rounded-lg shadow-lg overflow-hidden"
         >
           <div className="p-2 flex flex-col gap-1">
             <button
@@ -141,8 +138,106 @@ const PDFViewer = ({ item, isMobile, isLandscape, downloadPDF }) => {
         </motion.div>
       )}
 
-      {/* PDF document container */}
-      <div className="w-full h-full overflow-auto flex items-start justify-center bg-[#0A0A0A]">
+      {!loading && (
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.3 }}
+          className="absolute top-0 left-0 right-0 bg-black/80 backdrop-blur-sm border-b border-gray-800/50 flex justify-between items-center px-3 py-2 z-10"
+        >
+          <div className="flex items-center space-x-2">
+            <button
+              onClick={previousPage}
+              disabled={pageNumber === 1}
+              className={`p-2 rounded-full ${
+                pageNumber === 1
+                  ? "text-gray-500 bg-gray-800/30"
+                  : "text-white bg-gray-800 hover:bg-gray-700"
+              } transition-colors`}
+              aria-label="Previous Page"
+            >
+              <ArrowLeft className="h-4 w-4" />
+            </button>
+
+            <span className="text-white text-sm">
+              {pageNumber} / {numPages}
+            </span>
+
+            <button
+              onClick={nextPage}
+              disabled={pageNumber === numPages}
+              className={`p-2 rounded-full ${
+                pageNumber === numPages
+                  ? "text-gray-500 bg-gray-800/30"
+                  : "text-white bg-gray-800 hover:bg-gray-700"
+              } transition-colors`}
+              aria-label="Next Page"
+            >
+              <ArrowRight className="h-4 w-4" />
+            </button>
+          </div>
+
+          <div className="flex items-center space-x-2">
+            <button
+              onClick={() => handleZoom(-0.2)}
+              disabled={scale <= 0.5}
+              className={`p-2 rounded-full ${
+                scale <= 0.5
+                  ? "text-gray-500 bg-gray-800/30"
+                  : "text-white bg-gray-800 hover:bg-gray-700"
+              } transition-colors`}
+              aria-label="Zoom Out"
+            >
+              <ZoomOut className="h-4 w-4" />
+            </button>
+
+            <button
+              onClick={resetZoom}
+              className="p-2 rounded-full text-white bg-gray-800 hover:bg-gray-700 transition-colors"
+              aria-label="Reset Zoom"
+            >
+              <RotateCcw className="h-4 w-4" />
+            </button>
+
+            <button
+              onClick={() => handleZoom(0.2)}
+              disabled={scale >= 2.5}
+              className={`p-2 rounded-full ${
+                scale >= 2.5
+                  ? "text-gray-500 bg-gray-800/30"
+                  : "text-white bg-gray-800 hover:bg-gray-700"
+              } transition-colors`}
+              aria-label="Zoom In"
+            >
+              <ZoomIn className="h-4 w-4" />
+            </button>
+
+            <div className="h-5 w-px bg-gray-700 mx-1"></div>
+
+            <button
+              onClick={handleShare}
+              className={`p-2 rounded-full ${
+                showShareOptions
+                  ? "text-green-500 bg-gray-800"
+                  : "text-white bg-gray-800 hover:bg-gray-700"
+              } transition-colors`}
+              aria-label="Share Certificate"
+            >
+              <Share className="h-4 w-4" />
+            </button>
+
+            <button
+              onClick={downloadPDF}
+              className="p-2 rounded-full text-white bg-green-700 hover:bg-green-600 transition-colors"
+              aria-label="Download Certificate"
+            >
+              <Download className="h-4 w-4" />
+            </button>
+          </div>
+        </motion.div>
+      )}
+
+      <div className="w-full h-full overflow-auto flex items-start justify-center bg-[#0A0A0A] pt-12">
         <Document
           file={item.certificate}
           onLoadSuccess={onDocumentLoadSuccess}
@@ -164,116 +259,6 @@ const PDFViewer = ({ item, isMobile, isLandscape, downloadPDF }) => {
         </Document>
       </div>
 
-      {/* Controls overlay */}
-      {!loading && (
-        <>
-          {/* Controls bar */}
-          <motion.div
-            initial={{ opacity: 0, y: mobileControlsTop ? -20 : 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: 0.3 }}
-            className={`${
-              mobileControlsTop ? "top-0 border-b" : "bottom-0 border-t"
-            } absolute left-0 right-0 bg-black/80 backdrop-blur-sm border-gray-800/50 flex justify-between items-center px-3 py-2 z-10`}
-          >
-            <div className="flex items-center space-x-2">
-              <button
-                onClick={previousPage}
-                disabled={pageNumber === 1}
-                className={`p-2 rounded-full ${
-                  pageNumber === 1
-                    ? "text-gray-500 bg-gray-800/30"
-                    : "text-white bg-gray-800 hover:bg-gray-700"
-                } transition-colors`}
-                aria-label="Previous Page"
-              >
-                <ArrowLeft className="h-4 w-4" />
-              </button>
-
-              <span className="text-white text-sm">
-                {pageNumber} / {numPages}
-              </span>
-
-              <button
-                onClick={nextPage}
-                disabled={pageNumber === numPages}
-                className={`p-2 rounded-full ${
-                  pageNumber === numPages
-                    ? "text-gray-500 bg-gray-800/30"
-                    : "text-white bg-gray-800 hover:bg-gray-700"
-                } transition-colors`}
-                aria-label="Next Page"
-              >
-                <ArrowRight className="h-4 w-4" />
-              </button>
-            </div>
-
-            <div className="flex items-center space-x-2">
-              <button
-                onClick={() => handleZoom(-0.2)}
-                disabled={scale <= 0.5}
-                className={`p-2 rounded-full ${
-                  scale <= 0.5
-                    ? "text-gray-500 bg-gray-800/30"
-                    : "text-white bg-gray-800 hover:bg-gray-700"
-                } transition-colors`}
-                aria-label="Zoom Out"
-              >
-                <ZoomOut className="h-4 w-4" />
-              </button>
-
-              <button
-                onClick={resetZoom}
-                className="p-2 rounded-full text-white bg-gray-800 hover:bg-gray-700 transition-colors"
-                aria-label="Reset Zoom"
-              >
-                <RotateCcw className="h-4 w-4" />
-              </button>
-
-              <button
-                onClick={() => handleZoom(0.2)}
-                disabled={scale >= 2.5}
-                className={`p-2 rounded-full ${
-                  scale >= 2.5
-                    ? "text-gray-500 bg-gray-800/30"
-                    : "text-white bg-gray-800 hover:bg-gray-700"
-                } transition-colors`}
-                aria-label="Zoom In"
-              >
-                <ZoomIn className="h-4 w-4" />
-              </button>
-
-              {!isMobile && (
-                <>
-                  <div className="h-5 w-px bg-gray-700 mx-1"></div>
-
-                  <button
-                    onClick={handleShare}
-                    className={`p-2 rounded-full ${
-                      showShareOptions
-                        ? "text-green-500 bg-gray-800"
-                        : "text-white bg-gray-800 hover:bg-gray-700"
-                    } transition-colors`}
-                    aria-label="Share Certificate"
-                  >
-                    <Share className="h-4 w-4" />
-                  </button>
-
-                  <button
-                    onClick={downloadPDF}
-                    className="p-2 rounded-full text-white bg-green-700 hover:bg-green-600 transition-colors"
-                    aria-label="Download Certificate"
-                  >
-                    <Download className="h-4 w-4" />
-                  </button>
-                </>
-              )}
-            </div>
-          </motion.div>
-        </>
-      )}
-
-      {/* Styles for the PDF viewer */}
       <style jsx global>{`
         .pdf-document {
           display: flex;

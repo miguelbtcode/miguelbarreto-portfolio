@@ -14,7 +14,14 @@ export const CertificateModal = ({ item, onClose }) => {
   const containerRef = useRef(null);
   const modalRef = useRef(null);
 
-  // Check device type and orientation for responsive layout
+  // Prevent body scroll when modal is open
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, []);
+
   useEffect(() => {
     const checkDeviceTypeAndOrientation = () => {
       const width = window.innerWidth;
@@ -38,11 +45,9 @@ export const CertificateModal = ({ item, onClose }) => {
     };
   }, []);
 
-  // Reset view when modal opens and set proper default view based on device
   useEffect(() => {
     setIsLoading(true);
 
-    // In landscape on mobile, we want to show both panels side by side if possible
     if (isMobile && isLandscape) {
       setShowInfo(true);
     } else if (isMobile) {
@@ -52,75 +57,6 @@ export const CertificateModal = ({ item, onClose }) => {
     }
   }, [item, isMobile, isLandscape]);
 
-  // Optimize container dimensions based on device and orientation
-  useEffect(() => {
-    const optimizeContainers = () => {
-      if (!containerRef.current) return;
-
-      const headerHeight = 60; // Height of the modal header
-      const modalPadding = 0; // Modal padding
-
-      // Get modal height or use window height as fallback
-      const modalElement = document.querySelector(".sm\\:max-h-\\[90vh\\]");
-      const modalHeight =
-        modalElement?.clientHeight || window.innerHeight * 0.9;
-
-      let pdfHeight;
-      let containerLayout = "flex-col"; // Default layout direction
-
-      if (isMobile) {
-        if (isLandscape) {
-          // For landscape mobile, optimize for side-by-side view
-          pdfHeight = `${window.innerHeight - headerHeight}px`;
-          containerLayout = "flex-row"; // Change to row layout for side-by-side
-
-          if (modalRef.current) {
-            modalRef.current.classList.add("landscape-mobile-view");
-          }
-        } else {
-          // Portrait mobile
-          pdfHeight = `calc(100vh - ${headerHeight}px)`;
-
-          if (modalRef.current) {
-            modalRef.current.classList.remove("landscape-mobile-view");
-          }
-        }
-      } else if (isTablet) {
-        // Tablet adjustments
-        pdfHeight = `${modalHeight - headerHeight - modalPadding}px`;
-      } else {
-        // Desktop adjustments
-        if (window.innerHeight < 700) {
-          pdfHeight = `${
-            window.innerHeight - headerHeight - modalPadding - 30
-          }px`;
-        } else {
-          pdfHeight = "600px"; // Default size
-        }
-      }
-
-      // Apply optimized height
-      containerRef.current.style.height = pdfHeight;
-
-      // Set flex direction for the container based on orientation
-      if (isMobile && isLandscape) {
-        containerRef.current.style.display = "flex";
-        containerRef.current.style.flexDirection = containerLayout;
-      } else {
-        containerRef.current.style.display = "flex";
-        containerRef.current.style.flexDirection = "column";
-      }
-    };
-
-    optimizeContainers();
-    window.addEventListener("resize", optimizeContainers);
-
-    return () => {
-      window.removeEventListener("resize", optimizeContainers);
-    };
-  }, [isMobile, isTablet, isLandscape]);
-
-  // Function to download PDF
   const downloadPDF = () => {
     if (item.certificate) {
       const link = document.createElement("a");
@@ -142,6 +78,7 @@ export const CertificateModal = ({ item, onClose }) => {
   return (
     <AnimatePresence>
       <motion.div
+        key="certificate-modal"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
@@ -179,7 +116,7 @@ export const CertificateModal = ({ item, onClose }) => {
             className={`flex ${
               isMobile && isLandscape
                 ? "flex-row h-[calc(100vh-60px)]"
-                : "flex-col md:flex-row h-full"
+                : "flex-col md:flex-row"
             }`}
           >
             <motion.div
@@ -190,15 +127,13 @@ export const CertificateModal = ({ item, onClose }) => {
               className={`${
                 showInfo && isMobile && !isLandscape ? "hidden" : "flex"
               } ${
-                isMobile && isLandscape ? "w-1/2" : "md:flex-grow"
+                isMobile && isLandscape ? "w-1/2" : "w-full md:w-2/3"
               } bg-[#0A0A0A] relative`}
               style={{
                 height: isMobile
                   ? isLandscape
                     ? "calc(100vh - 60px)"
                     : "calc(100vh - 60px)"
-                  : isTablet
-                  ? "500px"
                   : "600px",
                 maxHeight: isMobile ? "none" : "600px",
                 overflow: "hidden",
@@ -212,7 +147,6 @@ export const CertificateModal = ({ item, onClose }) => {
               />
             </motion.div>
 
-            {/* Certificate Details Panel */}
             <CertificateDetails
               item={item}
               showInfo={showInfo}
@@ -224,6 +158,58 @@ export const CertificateModal = ({ item, onClose }) => {
           </div>
         </motion.div>
       </motion.div>
+
+      <style jsx global>{`
+        .landscape-modal {
+          display: flex !important;
+          flex-direction: column !important;
+          max-height: 100vh !important;
+        }
+
+        @media (orientation: landscape) and (max-width: 767px) {
+          .landscape-modal .flex-row {
+            display: flex !important;
+            flex-direction: row !important;
+          }
+
+          .landscape-modal .flex-row > div:first-child {
+            width: 50% !important;
+          }
+
+          .landscape-modal .flex-row > div:last-child {
+            width: 50% !important;
+          }
+        }
+
+        @media (min-width: 768px) {
+          .md\\:w-2\\/3 {
+            width: 66.666667% !important;
+          }
+        }
+
+        iframe {
+          background: white;
+        }
+
+        ::-webkit-scrollbar {
+          width: 8px;
+          height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+          background: rgba(30, 30, 30, 0.3);
+          border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+          background: rgba(100, 100, 100, 0.6);
+          border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+          background: rgba(120, 120, 120, 0.8);
+        }
+      `}</style>
     </AnimatePresence>
   );
 };
