@@ -3,8 +3,9 @@
 import { motion } from "framer-motion";
 import ContactForm from "@/components/contact/ContactForm";
 import ContactInfo from "@/components/contact/ContactInfo";
+import { memo } from "react";
 
-const Contact = () => {
+const Contact = memo(() => {
   return (
     <motion.section
       initial={{ opacity: 0 }}
@@ -29,6 +30,6 @@ const Contact = () => {
       </div>
     </motion.section>
   );
-};
+});
 
 export default Contact;

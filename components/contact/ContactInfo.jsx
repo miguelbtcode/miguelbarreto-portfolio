@@ -1,24 +1,28 @@
 import { FaEnvelope, FaMapMarkerAlt, FaPhoneAlt } from "react-icons/fa";
+import { memo, useMemo } from "react";
 
-const info = [
-  {
-    icon: <FaPhoneAlt />,
-    title: "Teléfono",
-    description: "(+51) 928 799 438",
-  },
-  {
-    icon: <FaEnvelope />,
-    title: "Correo",
-    description: "mabt2206@gmail.com",
-  },
-  {
-    icon: <FaMapMarkerAlt />,
-    title: "Ubicación",
-    description: "Lima, Perú",
-  },
-];
+const ContactInfo = memo(() => {
+  const info = useMemo(
+    () => [
+      {
+        icon: <FaPhoneAlt />,
+        title: "Teléfono",
+        description: "(+51) 928 799 438",
+      },
+      {
+        icon: <FaEnvelope />,
+        title: "Correo",
+        description: "mabt2206@gmail.com",
+      },
+      {
+        icon: <FaMapMarkerAlt />,
+        title: "Ubicación",
+        description: "Lima, Perú",
+      },
+    ],
+    []
+  );
 
-const ContactInfo = () => {
   return (
     <ul className="flex flex-col gap-10">
       {info.map((item, index) => (
@@ -34,6 +38,8 @@ const ContactInfo = () => {
       ))}
     </ul>
   );
-};
+});
+
+ContactInfo.displayName = "ContactInfo";
 
 export default ContactInfo;

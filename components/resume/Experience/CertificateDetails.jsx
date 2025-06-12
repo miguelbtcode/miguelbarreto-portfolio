@@ -156,7 +156,8 @@ const CertificateDetails = ({
         <h2 className="text-xl font-bold text-white">{item.position}</h2>
         <div className="flex items-center mt-2">
           <div
-            className={`w-2 h-2 bg-${item.color || "green"}-500 rounded-full`}
+            className={`w-2 h-2 rounded-full`}
+            style={{ backgroundColor: item.color }}
           ></div>
           <p className="text-white/80 ml-2">{item.company}</p>
         </div>

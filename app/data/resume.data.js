@@ -74,8 +74,8 @@ export const experience = {
     {
       company: "LILAB",
       position: "Full-stack Developer",
-      duration: "Jan 2025 - Actualmente",
-      certificate: "/assets/resume/kreante-cert-experience.pdf",
+      duration: "Feb 2025 - May 2025",
+      certificate: "/assets/resume/lilab-cert-experience.pdf",
       description:
         "Desarrollo de soluciones fullstack para el cliente Progreso (Chile), aplicando arquitecturas modernas y metodologías ágiles.",
       achievements: [
@@ -90,7 +90,7 @@ export const experience = {
         "MongoDB",
         "Microservices",
       ],
-      color: "purple",
+      color: "#7988cf",
     },
     {
       company: "Kreante Tech. Solutions",
@@ -112,13 +112,13 @@ export const experience = {
         "SQL Server",
         "Cloud Functions",
       ],
-      color: "blue",
+      color: "#014be0",
     },
     {
       company: "Banco de Crédito del Perú",
       position: "NET Software Engineer",
       duration: "Mar 2023 - Mar 2024",
-      certificate: "/assets/resume/bcp-cert-experience.pdf", // Optional
+      certificate: "/assets/resume/bcp-cert-experience.pdf",
       description:
         "Modernización de aplicaciones SWIFT y sistemas de estados de cuenta bancarios, con migración a arquitecturas Cloud y optimización de procesos ETL.",
       achievements: [
@@ -135,12 +135,13 @@ export const experience = {
         "OCP",
         "ETL",
       ],
-      color: "green",
+      color: "#e08040",
     },
     {
       company: "Indra Minsait",
       position: "Full-stack Developer Ssr.",
       duration: "Oct 2022 - Feb 2023",
+      certificate: "/assets/resume/indra-cert-experience.pdf",
       description:
         "Desarrollo y optimización de sistemas de gestión de pólizas para Mapfre Seguros y Reaseguros, con foco en rendimiento y escalabilidad.",
       achievements: [
@@ -149,18 +150,19 @@ export const experience = {
       ],
       technologies: [
         "NET",
-        "React",
+        "Angular",
         "SQL Server",
         "Oracle PL/SQL",
         "Swagger",
         "REST APIs",
       ],
-      color: "orange",
+      color: "#456069",
     },
     {
       company: "BDCapital",
-      position: "Full-stack Developer Jr.",
+      position: "Technology Intern",
       duration: "Sep 2021 - Oct 2022",
+      certificate: "/assets/resume/bdcapital-cert-experience.pdf",
       description:
         "Implementación de mejoras en sistemas SOTI y SIF para optimizar la gestión de operaciones financieras.",
       achievements: [
@@ -174,12 +176,13 @@ export const experience = {
         "Blazor",
         "Financial Systems",
       ],
-      color: "red",
+      color: "#7a96b0",
     },
     {
       company: "Resindesa S.A.C",
-      position: "Full-stack Developer Jr.",
-      duration: "Mar 2021 - Ago 2021",
+      position: "Full-stack Developer",
+      duration: "Nov 2020 - Feb 2021",
+      certificate: "/assets/resume/resindesa-cert-experience.pdf",
       description:
         "Desarrollo de sitios web personalizados para sectores de construcción y publicidad, con optimización de generación de reportes.",
       achievements: [

@@ -13,100 +13,119 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import useContactForm from "@/hooks/useContactForm";
+import { memo } from "react";
 
-const ContactForm = () => {
+// Services configuration
+const SERVICES = [
+  { value: "fullstack_developer", label: "Fullstack Developer" },
+  { value: "cloud_solutions_arquitect", label: "Cloud Solutions Arquitect" },
+  { value: "backend_developer", label: "Backend Developer" },
+  { value: "frontend_developer", label: "Frontend Developer" },
+];
+
+// FormFields configuration
+const FORM_FIELDS = [
+  { name: "name", placeholder: "Nombre", type: "text" },
+  { name: "lastname", placeholder: "Apellido", type: "text" },
+  { name: "email", placeholder: "Correo electrónico", type: "email" },
+  { name: "phone", placeholder: "Teléfono", type: "tel" },
+];
+
+const FormField = memo(({ children, error }) => (
+  <div>
+    {children}
+    {error && <p className="text-red-500 text-sm mt-1">{error.message}</p>}
+  </div>
+));
+
+FormField.displayName = "FormField";
+
+const ContactForm = memo(() => {
+  const { form, onSubmit, isLoading, success } = useContactForm();
   const {
-    formData,
-    handleChange,
-    handleSelectChange,
-    sendEmail,
-    isLoading,
-    error,
-    success,
-  } = useContactForm();
+    register,
+    handleSubmit,
+    setValue,
+    watch,
+    formState: { errors },
+  } = form;
+
+  const serviceValue = watch("service");
 
   return (
     <form
+      onSubmit={handleSubmit(onSubmit)}
       className="flex flex-col gap-6 p-10 bg-[#27272c] rounded-xl"
-      onSubmit={sendEmail}
     >
-      <h3 className="text-4xl text-accent">Trabajemos juntos</h3>
-      <p className="text-white/60 text-justify">
-        Estoy preparado para aportar mis habilidades dentro de un equipo sólido,
-        asumir nuevos retos y contribuir al crecimiento y éxito de la empresa.
-        Si crees que podemos hacer grandes cosas juntos, conversemos.
-      </p>
-      <p className="text-white/80">📩 Escríbeme y demos el primer paso.</p>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <Input
-          name="name"
-          type="text"
-          placeholder="Nombre"
-          value={formData.name}
-          onChange={handleChange}
-          required
-        />
-        <Input
-          name="lastname"
-          type="text"
-          placeholder="Apellido"
-          value={formData.lastname}
-          onChange={handleChange}
-          required
-        />
-        <Input
-          name="email"
-          type="email"
-          placeholder="Correo electrónico"
-          value={formData.email}
-          onChange={handleChange}
-          required
-        />
-        <Input
-          name="phone"
-          type="tel"
-          placeholder="Teléfono"
-          value={formData.phone}
-          onChange={handleChange}
-          required
-        />
+      {/* Header's form */}
+      <div className="space-y-4">
+        <h3 className="text-4xl text-accent">Trabajemos juntos</h3>
+        <p className="text-white/60 text-justify">
+          Estoy preparado para aportar mis habilidades dentro de un equipo
+          sólido, asumir nuevos retos y contribuir al crecimiento y éxito de la
+          empresa. Si crees que podemos hacer grandes cosas juntos, conversemos.
+        </p>
+        <p className="text-white/80">📩 Escríbeme y demos el primer paso.</p>
       </div>
 
-      <Select onValueChange={handleSelectChange}>
-        <SelectTrigger className="w-full">
-          <SelectValue placeholder="Seleccione un servicio" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectGroup>
-            <SelectLabel>Seleccione un servicio</SelectLabel>
-            <SelectItem value="Desarrollo Fullstack">
-              Desarrollo Fullstack
-            </SelectItem>
-            <SelectItem value="Líder Técnico Fullstack">
-              Líder Técnico Fullstack
-            </SelectItem>
-            <SelectItem value="Desarrollo .NET">Desarrollo .NET</SelectItem>
-          </SelectGroup>
-        </SelectContent>
-      </Select>
+      {/* Main fields's form */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {FORM_FIELDS.map((field) => (
+          <FormField key={field.name} error={errors[field.name]}>
+            <Input
+              type={field.type}
+              placeholder={field.placeholder}
+              {...register(field.name)}
+            />
+          </FormField>
+        ))}
+      </div>
 
-      <Textarea
-        name="message"
-        className="h-[200px]"
-        placeholder="Escribe tu mensaje aquí."
-        value={formData.message}
-        onChange={handleChange}
-      />
+      {/* Select Services */}
+      <FormField error={errors.service}>
+        <Select
+          onValueChange={(value) => setValue("service", value)}
+          value={serviceValue}
+        >
+          <SelectTrigger className="w-full">
+            <SelectValue placeholder="Seleccione un servicio" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectGroup>
+              <SelectLabel>Seleccione un servicio</SelectLabel>
+              {SERVICES.map((service) => (
+                <SelectItem key={service.value} value={service.value}>
+                  {service.label}
+                </SelectItem>
+              ))}
+            </SelectGroup>
+          </SelectContent>
+        </Select>
+      </FormField>
 
+      {/* Textarea message */}
+      <FormField error={errors.message}>
+        <Textarea
+          className="h-[200px]"
+          placeholder="Escribe tu mensaje aquí."
+          {...register("message")}
+        />
+      </FormField>
+
+      {/* Send email button */}
       <Button type="submit" size="md" className="max-w-40" disabled={isLoading}>
         {isLoading ? "Enviando..." : "Enviar Mensaje"}
       </Button>
 
-      {error && <p className="text-red-500">{error}</p>}
-      {success && <p className="text-green-500">{success}</p>}
+      {/* State messages */}
+      <div className="space-y-2">
+        {errors.root && <p className="text-red-500">{errors.root.message}</p>}
+        {success && <p className="text-green-500">{success}</p>}
+      </div>
     </form>
   );
-};
+});
+
+ContactForm.displayName = "ContactForm";
 
 export default ContactForm;

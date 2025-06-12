@@ -1,86 +1,71 @@
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 import { useState } from "react";
+import { useSearchParams } from "next/navigation";
 import emailjs from "@emailjs/browser";
 
-const useContactForm = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    lastname: "",
-    email: "",
-    phone: "",
-    service: "",
-    message: "",
-  });
+// Schema de validación
+const contactSchema = z.object({
+  name: z.string().min(1, "El nombre es requerido"),
+  lastname: z.string().min(1, "El apellido es requerido"),
+  email: z.string().email("Email inválido"),
+  phone: z.string().min(1, "El teléfono es requerido"),
+  service: z.string().min(1, "Selecciona un servicio"),
+  message: z.string().min(1, "El mensaje es requerido"),
+});
 
+const useContactForm = () => {
+  const searchParams = useSearchParams();
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
-  // Manejar los cambios en los campos de texto
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  const form = useForm({
+    resolver: zodResolver(contactSchema),
+    defaultValues: {
+      name: "",
+      lastname: "",
+      email: "",
+      phone: "",
+      service: searchParams.get("service") || "",
+      message: "",
+    },
+  });
 
-  // Manejar la selección de servicios
-  const handleSelectChange = (value) => {
-    setFormData({ ...formData, service: value });
-  };
-
-  // Validar el formulario
-  const validateForm = () => {
-    const { name, lastname, email, phone, service } = formData;
-
-    if (!name || !lastname || !email || !phone || !service) {
-      setError("Todos los campos son obligatorios.");
-      return false;
-    }
-
-    return true;
-  };
-
-  // Enviar el formulario con EmailJS
-  const sendEmail = async (e) => {
-    e.preventDefault();
-    setError("");
-    setSuccess("");
-
-    if (!validateForm()) return;
-
+  const onSubmit = async (data) => {
     setIsLoading(true);
+    setSuccess("");
 
     try {
       await emailjs.send(
         "service_ryzacvi",
         "template_nud5j5a",
-        {
-          ...formData,
-          date: new Date().toLocaleString(),
-        },
+        { ...data, date: new Date().toLocaleString() },
         "4DXvyFO1JtabgNJiX"
       );
 
       setSuccess("Mensaje enviado con éxito 🎉");
-      setFormData({
+      form.reset({
         name: "",
         lastname: "",
         email: "",
         phone: "",
-        service: "",
+        service: searchParams.get("service") || "",
         message: "",
       });
-    } catch (err) {
-      setError("Hubo un error al enviar el mensaje. Inténtalo nuevamente.");
+    } catch (error) {
+      form.setError("root", {
+        message: "Error al enviar el mensaje. Inténtalo nuevamente.",
+      });
+    } finally {
+      setIsLoading(false);
     }
-
-    setIsLoading(false);
   };
 
   return {
-    formData,
-    handleChange,
-    handleSelectChange,
-    sendEmail,
+    form,
+    onSubmit,
     isLoading,
-    error,
     success,
   };
 };

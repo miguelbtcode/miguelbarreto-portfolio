@@ -28,10 +28,10 @@ const Photo = () => {
               ease: "easeInOut",
             },
           }}
-          className="w-[298px] h-[298px] xl:w-[498px] xl:h-[420px] mix-blend-lighten absolute"
+          className="w-[350px] h-[350px] ml-5 mt-2 md:w-[400px] md:h-[400px] xl:w-[500px] xl:h-[490px] mix-blend-lighten absolute"
         >
           <Image
-            src="/assets/photo8.png"
+            src="/assets/hero/photo-portfolio.png"
             priority
             quality={100}
             fill
@@ -42,15 +42,15 @@ const Photo = () => {
 
         {/* circle */}
         <motion.svg
-          className="w-[300px] xl:w-[498px] h-[300px] xl:h-[426px]"
+          className="w-[380px] h-[380px] md:w-[430px] md:h-[430px] xl:w-[530px] xl:h-[520px]"
           fill="transparent"
           viewBox="0 0 506 506"
           xmlns="http://www.w3.org/2000/svg"
         >
           <motion.circle
-            cx="253"
-            cy="253"
-            r="250"
+            cx="263"
+            cy="263"
+            r="260"
             stroke="#00ff99"
             strokeWidth="4"
             strokeLinecap="round"
