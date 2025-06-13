@@ -60,7 +60,6 @@ const getIcon = (iconName) => {
   return icons[iconName];
 };
 
-// Componente para el badge de tecnologías
 const TechBadge = ({ tech, delay }) => (
   <motion.span
     initial={{ scale: 0, opacity: 0 }}
@@ -112,7 +111,7 @@ const Services = () => {
                 className="group relative cursor-pointer"
                 onClick={() => handleServiceClick(service.serviceValue)}
               >
-                {/* Card principal - consistente con el estilo del currículum */}
+                {/* Card principal */}
                 <div
                   className="relative z-10 flex flex-col justify-between group 
                     bg-[#1c1c22] p-8 rounded-2xl border border-white/10 

@@ -24,7 +24,7 @@ import {
   Boxes,
   Rocket,
 } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
 const CertificateDetails = ({
   item,

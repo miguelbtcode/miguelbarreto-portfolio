@@ -36,13 +36,11 @@ const RecommendationCard = ({ recommendation, index }) => {
       transition={{ type: "spring", stiffness: 300, damping: 20 }}
       className="bg-[#232329] rounded-xl p-6 h-full flex flex-col border border-white/10 hover:border-accent/30 relative overflow-hidden group"
     >
-      {/* Efecto de brillo en hover */}
       <motion.div
         className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out"
         initial={false}
       />
 
-      {/* Header con foto y datos personales */}
       <div className="flex items-start gap-4 mb-4 relative z-10">
         <div className="relative">
           <div className="w-16 h-16 rounded-full bg-gradient-to-br from-accent/20 to-accent/5 flex items-center justify-center border border-accent/20 overflow-hidden">
@@ -60,7 +58,6 @@ const RecommendationCard = ({ recommendation, index }) => {
               />
             ) : null}
 
-            {/* Fallback con iniciales si no hay imagen o falla la carga */}
             <div
               className={`w-full h-full rounded-full bg-accent/10 flex items-center justify-center ${
                 image ? "hidden" : "flex"
@@ -76,7 +73,6 @@ const RecommendationCard = ({ recommendation, index }) => {
             </div>
           </div>
 
-          {/* Indicador online */}
           <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-[#232329]"></div>
         </div>
 
