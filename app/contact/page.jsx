@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import ContactForm from "@/components/contact/ContactForm";
 import ContactInfo from "@/components/contact/ContactInfo";
-import { memo } from "react";
+import { memo, Suspense } from "react";
 
 const Contact = memo(() => {
   return (
@@ -19,7 +19,9 @@ const Contact = memo(() => {
         <div className="flex flex-col xl:flex-row gap-[30px]">
           {/* Formulario */}
           <div className="xl:w-[54%] order-2 xl:order-none">
-            <ContactForm />
+            <Suspense fallback={<div>Loading...</div>}>
+              <ContactForm />
+            </Suspense>
           </div>
 
           {/* Información de contacto */}

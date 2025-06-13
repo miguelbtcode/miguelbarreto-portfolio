@@ -19,6 +19,14 @@ const useContactForm = () => {
   const searchParams = useSearchParams();
   const [isLoading, setIsLoading] = useState(false);
   const [success, setSuccess] = useState("");
+  const [serviceParam, setServiceParam] = useState("");
+
+  useEffect(() => {
+    const service = searchParams.get("service");
+    if (service) {
+      setServiceParam(service);
+    }
+  }, [searchParams]);
 
   const form = useForm({
     resolver: zodResolver(contactSchema),
@@ -27,10 +35,18 @@ const useContactForm = () => {
       lastname: "",
       email: "",
       phone: "",
-      service: searchParams.get("service") || "",
+      service: "",
       message: "",
     },
   });
+
+  const { setValue } = form;
+
+  useEffect(() => {
+    if (serviceParam) {
+      setValue("service", serviceParam);
+    }
+  }, [serviceParam, setValue]);
 
   const onSubmit = async (data) => {
     setIsLoading(true);
@@ -50,7 +66,7 @@ const useContactForm = () => {
         lastname: "",
         email: "",
         phone: "",
-        service: searchParams.get("service") || "",
+        service: serviceParam || "",
         message: "",
       });
     } catch (error) {
