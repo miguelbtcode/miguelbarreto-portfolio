@@ -1,8 +1,14 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Experience, Education, Skills, About } from "@/components/resume";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  Experience,
+  Education,
+  Skills,
+  About,
+  Recommendations,
+} from "@/components/resume";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const Resume = () => {
   return (
@@ -23,6 +29,7 @@ const Resume = () => {
             <TabsTrigger value="experience">Experiencia</TabsTrigger>
             <TabsTrigger value="education">Educación</TabsTrigger>
             <TabsTrigger value="skills">Habilidades</TabsTrigger>
+            <TabsTrigger value="recommendations">Recomendaciones</TabsTrigger>
             <TabsTrigger value="about">Sobre Mí</TabsTrigger>
           </TabsList>
 
@@ -34,6 +41,8 @@ const Resume = () => {
             <Education />
             {/* skills */}
             <Skills />
+            {/* recommendations */}
+            <Recommendations />
             {/* about */}
             <About />
           </div>

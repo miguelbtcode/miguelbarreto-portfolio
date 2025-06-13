@@ -307,3 +307,37 @@ export const skills = {
     },
   ],
 };
+
+// recommendations data
+export const recommendations = {
+  icon: "/assets/resume/star.svg",
+  title: "Recomendaciones 🌟",
+  description:
+    "Lo que dicen mis colegas, supervisores y clientes sobre mi trabajo y desempeño profesional.",
+  items: [
+    {
+      id: 1,
+      name: "Carlos Mendoza",
+      position: "Fullstack Developer",
+      company: "LILAB",
+      image: "/assets/recommendations/carlos-mendoza.jpeg",
+      text: "Migue es un gran trabajador, con iniciativa y buenas ideas para el desarrollo. Tiene amplio conocimiento en muchos aspectos de arquitectura de software y sobre todo responsable y motivado a hacer las cosas y aprender. Con 2 proyectos en los que pude participar con él, doy fe de sus aptitudes y compromiso con el team.",
+      linkedin: "https://www.linkedin.com/in/carlos-rafael-mendoza/",
+      date: "Enero 2025",
+      rating: 5,
+      skills: ["Backend Development", "Architecture", "Problem Solving"],
+    },
+    {
+      id: 2,
+      name: "Angel Vega",
+      position: "Backend Developer",
+      company: "Kreante Technological Solutions",
+      image: "/assets/recommendations/angel-vega.jpeg",
+      text: "Miguel es un desarrollador de software competente y colaborador. Durante su tiempo en nuestro equipo, demostró habilidades sólidas en el desarrollo de software y una buena capacidad para resolver problemas. Su dedicación y profesionalismo son notables. Lo recomiendo para proyectos de desarrollo de software donde se valore la colaboración y la resolución de problemas.",
+      linkedin: "https://www.linkedin.com/in/angel-vega-s/",
+      date: "Diciembre 2024",
+      rating: 5,
+      skills: ["Microservices", ".NET Core", "Mentoring"],
+    },
+  ],
+};
