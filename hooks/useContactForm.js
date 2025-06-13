@@ -17,16 +17,9 @@ const contactSchema = z.object({
 
 const useContactForm = () => {
   const searchParams = useSearchParams();
+  const serviceParam = searchParams.get("service") || "";
   const [isLoading, setIsLoading] = useState(false);
   const [success, setSuccess] = useState("");
-  const [serviceParam, setServiceParam] = useState("");
-
-  useEffect(() => {
-    const service = searchParams.get("service");
-    if (service) {
-      setServiceParam(service);
-    }
-  }, [searchParams]);
 
   const form = useForm({
     resolver: zodResolver(contactSchema),
@@ -35,18 +28,17 @@ const useContactForm = () => {
       lastname: "",
       email: "",
       phone: "",
-      service: "",
+      service: serviceParam,
       message: "",
     },
   });
 
-  const { setValue } = form;
-
   useEffect(() => {
-    if (serviceParam) {
-      setValue("service", serviceParam);
+    const service = searchParams.get("service");
+    if (service && service !== form.getValues("service")) {
+      form.setValue("service", service);
     }
-  }, [serviceParam, setValue]);
+  }, [searchParams, form]);
 
   const onSubmit = async (data) => {
     setIsLoading(true);
