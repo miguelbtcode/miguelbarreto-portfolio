@@ -1,190 +1,221 @@
-# 🚀 Miguel Barreto - Portfolio
+# 🚀 Miguel Barreto - Personal Portfolio
 
-> Fullstack Developer especializado en .NET Core, React y arquitecturas Cloud
+> My personal portfolio built with Next.js 14, TypeScript and Tailwind CSS
 
 ![Portfolio Preview](https://img.shields.io/badge/Status-Live-brightgreen) ![Next.js](https://img.shields.io/badge/Next.js-14-black) ![TypeScript](https://img.shields.io/badge/TypeScript-5-blue) ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3-38B2AC)
 
-## ✨ Características
+**[🌐 View Live Portfolio](https://miguelbarretodev.vercel.app/)**
 
-- 🎨 **Diseño Moderno** - UI elegante con animaciones fluidas usando Framer Motion
-- 📱 **Completamente Responsive** - Optimizado para todos los dispositivos
-- 🌙 **Modo Oscuro** - Tema dark con colores accent personalizados
-- 🖼️ **Galería Interactiva** - Carrusel de imágenes con navegación suave
-- 📧 **Formulario de Contacto** - Sistema de mensajería integrado
-- ⚡ **Performance Optimizada** - Carga rápida y SEO optimizado
-- 🎯 **Animaciones Avanzadas** - Transiciones y efectos visuales atractivos
+## 📋 About This Project
 
-## 🛠️ Tecnologías
+This is my personal portfolio where I showcase my projects, professional experience, and skills as a Fullstack Developer. I built it from scratch to reflect my programming style and the technologies I master.
 
-### Frontend
+### ✨ Implemented Features
 
-- **Next.js 14** - Framework React con SSR
-- **TypeScript** - Tipado estático para mejor desarrollo
+- 🎨 **Modern & Minimalist Design** - Elegant UI with custom color palette
+- 📱 **Fully Responsive** - Optimized for desktop, tablet, and mobile
+- 🌙 **Dark Theme** - Dark mode with green accents (#00ff99)
+- 🖼️ **Project Gallery** - Interactive carousel with Swiper.js
+- 📧 **Functional Contact Form** - Integrated with EmailJS
+- ⚡ **Performance Optimized** - SSR with Next.js and image optimization
+- 🎯 **Smooth Animations** - Fluid transitions with Framer Motion
+- 📊 **Resume Section** - Interactive CV with tabs and dynamic components
+
+## 🛠️ Tech Stack
+
+### Core
+
+- **Next.js 14** - React framework with App Router
+- **TypeScript** - For static typing and better DX
 - **Tailwind CSS** - Utility-first CSS framework
-- **Framer Motion** - Librería de animaciones
-- **Swiper.js** - Carrusel de componentes moderno
 
-### UI/UX
+### UI/UX & Animations
 
-- **Lucide React** - Iconos modernos y consistentes
-- **React Icons** - Amplia colección de iconos
-- **Custom Components** - Componentes reutilizables diseñados desde cero
+- **Framer Motion** - Animations and transitions
+- **Swiper.js** - Project carousel
+- **Lucide React** - Modern iconography
+- **React Icons** - Additional icons for technologies
 
-### Development Tools
+### Forms
 
-- **ESLint & Prettier** - Linting y formateo de código
-- **React Hook Form** - Manejo eficiente de formularios
-- **Responsive Design** - Mobile-first approach
+- **React Hook Form** - Efficient form handling
+- **EmailJS** - Frontend email sending
 
-## 🚀 Inicio Rápido
+### Development
 
-### Prerrequisitos
+- **ESLint & Prettier** - Automatic linting and formatting
+- **clsx** - Conditional classes utility
 
-- Node.js 18+
-- npm, yarn, pnpm o bun
+## 🎨 Design Decisions
 
-### Instalación
+### Color Palette
 
-1. **Clona el repositorio**
+```css
+/* Main theme */
+--primary: #1c1c22; /* Main background */
+--secondary: #27272c; /* Card backgrounds */
+--accent: #00ff99; /* Green accent color */
+--white: #ffffff; /* Primary text */
+--white-secondary: rgba(255, 255, 255, 0.8); /* Secondary text */
+```
 
-   ```bash
-   git clone https://github.com/miguelbtcode/portfolio.git
-   cd portfolio
-   ```
+### Typography
 
-2. **Instala las dependencias**
+- **Main Font**: JetBrains Mono - For a technical and modern look
+- **Hierarchy**: Responsive size system with Tailwind
 
-   ```bash
-   npm install
-   # o
-   yarn install
-   # o
-   pnpm install
-   ```
+### Layout
 
-3. **Ejecuta el servidor de desarrollo**
+- **Mobile-First**: Responsive design from 320px
+- **Grid System**: CSS Grid and Flexbox for complex layouts
+- **Spacing**: Consistent spacing system (4, 8, 16, 24, 32px)
 
-   ```bash
-   npm run dev
-   # o
-   yarn dev
-   # o
-   pnpm dev
-   ```
-
-4. **Abre tu navegador**
-
-   Visita [http://localhost:3000](http://localhost:3000) para ver el resultado.
-
-## 📁 Estructura del Proyecto
+## 📁 Project Structure
 
 ```
 portfolio/
 ├── 📂 app/
-│   ├── 📂 work/              # Página de proyectos
-│   ├── 📂 services/          # Página de servicios
-│   ├── 📂 resume/           # Página de currículum
-│   ├── 📂 contact/          # Página de contacto
-│   └── 📄 layout.js         # Layout principal
+│   ├── 📄 layout.jsx           # Main layout with metadata
+│   ├── 📄 page.jsx             # Homepage with hero and stats
+│   ├── 📂 data/                # Content data
+│   │   ├── 📄 resume.data.js   # Resume data
+│   │   └── 📄 projects.data.js # Projects data
+│   ├── 📂 work/                # Projects page
+│   ├── 📂 services/            # Services page
+│   ├── 📂 resume/              # Interactive CV
+│   └── 📂 contact/             # Contact form
 ├── 📂 components/
-│   ├── 📂 ui/               # Componentes de UI base
-│   ├── 📄 Header.jsx        # Navegación principal
-│   ├── 📄 PageTransition.jsx # Transiciones de página
-│   └── 📄 StairTransition.jsx # Efectos de transición
-├── 📂 lib/                  # Utilidades y configuraciones
+│   ├── 📂 ui/                  # Reusable base components
+│   │   ├── 📄 tabs.jsx         # Custom tabs system
+│   │   └── 📄 button.jsx       # Styled buttons
+│   ├── 📄 Header.jsx           # Main navigation
+│   ├── 📄 MobileNav.jsx        # Mobile menu
+│   ├── 📄 PageTransition.jsx   # Page transitions
+│   ├── 📄 StairTransition.jsx  # Stair effect
+│   ├── 📄 Photo.jsx            # Profile photo component
+│   ├── 📄 Social.jsx           # Social media links
+│   ├── 📄 Stats.jsx            # Animated statistics
+│   └── 📂 resume/              # CV specific components
+│       ├── 📄 About.jsx        # Personal information
+│       ├── 📄 Experience.jsx   # Work experience
+│       ├── 📄 Education.jsx    # Academic background
+│       ├── 📄 Skills.jsx       # Technical skills
+│       └── 📄 Recommendations.jsx # Professional recommendations
 ├── 📂 public/
-│   └── 📂 assets/           # Imágenes y recursos estáticos
-└── 📄 tailwind.config.js    # Configuración de Tailwind
+│   └── 📂 assets/              # Static assets
+│       ├── 📂 work/            # Project screenshots
+│       ├── 📂 resume/          # CV related files
+│       └── 📂 recommendations/ # Profile images
+├── 📂 lib/                     # Utilities and configurations
+│   └── 📄 utils.js             # Helper functions
+└── 📄 tailwind.config.js       # Tailwind configuration
 ```
 
-## 🎨 Personalización
+## 🚀 Development Process
 
-### Colores Accent
+### 1. Planning & Design
 
-El portfolio usa un sistema de colores accent personalizable. Para cambiar el color principal:
+- **Wireframing**: Sketched layout and user flow
+- **Design System**: Created consistent color palette and spacing
+- **Responsive Strategy**: Mobile-first approach with breakpoints
 
-```css
-/* globals.css */
-:root {
-  --accent: 0 255 153; /* Verde por defecto */
-}
-```
+### 2. Core Development
 
-### Agregar Proyectos
+- **Next.js Setup**: Configured with TypeScript and ESLint
+- **Component Architecture**: Built reusable UI components
+- **Data Management**: Centralized content in data files for easy updates
 
-Edita el archivo `app/work/page.jsx` para agregar nuevos proyectos:
+### 3. Advanced Features
 
-```javascript
-const projects = [
-  {
-    num: "02",
-    category: "Frontend",
-    title: "Tu Nuevo Proyecto",
-    description: "Descripción del proyecto...",
-    stack: [{ name: "React" }, { name: "TypeScript" }],
-    images: ["/assets/work/proyecto/imagen.png"],
-    live: "https://tu-proyecto.com",
-    github: "https://github.com/tu-usuario/proyecto",
-  },
-];
-```
+- **Animation System**: Implemented page transitions and micro-interactions
+- **Form Handling**: Built contact form with validation and email integration
+- **Performance**: Optimized images, fonts, and bundle size
 
-## 📧 Configuración de Contacto
+### 4. Content & Polish
 
-Para configurar el formulario de contacto, edita las variables de entorno:
+- **SEO Optimization**: Added proper metadata and structured data
+- **Accessibility**: Ensured keyboard navigation and screen reader support
+- **Testing**: Cross-browser and device testing
+
+## 🎯 Key Challenges Solved
+
+### Performance Optimization
+
+- **Image Optimization**: Used Next.js Image component for automatic optimization
+- **Code Splitting**: Leveraged Next.js automatic code splitting
+- **Font Loading**: Optimized font loading with `next/font`
+
+### Responsive Design
+
+- **Complex Layouts**: Created flexible grid systems for different screen sizes
+- **Touch Interactions**: Implemented touch-friendly navigation for mobile
+- **Progressive Enhancement**: Ensured graceful degradation
+
+### Animation Performance
+
+- **GPU Acceleration**: Used transform and opacity for smooth animations
+- **Reduced Motion**: Respected user preferences for reduced motion
+- **Optimized Renders**: Minimized re-renders with proper component structure
+
+## 📈 Performance Metrics
+
+- ⚡ **Lighthouse Score**: 95+ across all metrics
+- 🎯 **Core Web Vitals**: Optimized for user experience
+- 📱 **Mobile Performance**: Fast loading on 3G networks
+- 🖼️ **Image Optimization**: WebP format with fallbacks
+
+## 🔧 Local Development
+
+### Prerequisites
+
+- Node.js 18+
+- npm, yarn, or pnpm
+
+### Installation
 
 ```bash
-# .env.local
-NEXT_PUBLIC_CONTACT_EMAIL=mabt2206@gmail.com
+# Clone the repository
+git clone https://github.com/miguelbtcode/portfolio.git
+cd portfolio
+
+# Install dependencies
+npm install
+
+# Run development server
+npm run dev
+
+# Open browser
+# Visit http://localhost:3000
 ```
 
-## 🚀 Despliegue
-
-### Vercel (Recomendado)
-
-1. Conecta tu repositorio con [Vercel](https://vercel.com)
-2. Las configuraciones se detectan automáticamente
-3. ¡Despliega con un clic!
-
-### Otros Proveedores
+### Build for Production
 
 ```bash
-# Build para producción
+# Create production build
 npm run build
 
-# Inicia el servidor de producción
+# Start production server
 npm start
 ```
 
-## 📈 Performance
+## 🚀 Deployment
 
-- ⚡ **Lighthouse Score**: 95+ en todas las métricas
-- 🎯 **Core Web Vitals**: Optimizado para UX
-- 📱 **Mobile-First**: Diseño responsive desde el inicio
-- 🖼️ **Imágenes Optimizadas**: Next.js Image optimization
+**Hosted on Vercel** - Automatic deployments from main branch with:
 
-## 🤝 Contribuciones
+- **Edge Functions**: For optimal performance
+- **Analytics**: Built-in performance monitoring
+- **Custom Domain**: Professional domain setup
 
-Las contribuciones son bienvenidas. Para cambios importantes:
+## 📧 Contact
 
-1. Fork el proyecto
-2. Crea una rama feature (`git checkout -b feature/AmazingFeature`)
-3. Commit tus cambios (`git commit -m 'Add AmazingFeature'`)
-4. Push a la rama (`git push origin feature/AmazingFeature`)
-5. Abre un Pull Request
-
-## 📄 Licencia
-
-Este proyecto está bajo la Licencia MIT. Ver `LICENSE` para más detalles.
-
-## 🌟 ¿Te gusta el proyecto?
-
-Si este portfolio te ha sido útil, ¡dale una ⭐ al repositorio!
+- **Email**: mabt2206@gmail.com
+- **LinkedIn**: [Miguel Barreto Torres](https://www.linkedin.com/in/miguelbarretotorres/)
+- **Portfolio**: [miguelbarretodev.vercel.app](https://miguelbarretodev.vercel.app/)
 
 ---
 
 <div align="center">
 
-**[🌐 Ver Portfolio](https://miguelbarretodev.vercel.app/)** • **[📧 Contacto](mailto:mabt2206@gmail.com)** • **[💼 LinkedIn](https://www.linkedin.com/in/miguelbarretotorres/)**
+**Built with ❤️ by Miguel Barreto**
 
 </div>
