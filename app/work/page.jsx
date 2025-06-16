@@ -3,7 +3,9 @@
 import { motion } from "framer-motion";
 import React, { useState, useEffect, useCallback } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper/modules";
 import "swiper/css";
+import "swiper/css/navigation";
 import WorkSliderBtns from "@/components/WorkSliderBtns";
 import ProjectInfo from "./ProjectInfo";
 import ImageCarousel from "./ImageCarousel";
@@ -161,6 +163,7 @@ const getSafeImageSrc = (proj, imageIndex) => {
 const Work = () => {
   const [project, setProject] = useState(projects[0]);
   const [currentProjectIndex, setCurrentProjectIndex] = useState(0);
+  const [swiperRef, setSwiperRef] = useState(null);
 
   const {
     imageIndices,
@@ -207,12 +210,15 @@ const Work = () => {
           </div>
 
           {/* Image Carousel */}
-          <div className="w-full xl:w-[50%]">
+          <div className="w-full xl:w-[50%] relative">
             <Swiper
               spaceBetween={30}
               slidesPerView={1}
               className="xl:h-[520px] mb-12"
               onSlideChange={handleSlideChange}
+              onSwiper={setSwiperRef}
+              modules={[Navigation]}
+              navigation={false}
             >
               {projects.map((proj, projectIndex) => {
                 const currentImageIndex = imageIndices[projectIndex] || 0;
@@ -235,13 +241,16 @@ const Work = () => {
                   </SwiperSlide>
                 );
               })}
-
-              {/* Slider Navigation */}
-              <WorkSliderBtns
-                containerStyles="flex gap-2 absolute right-0 bottom-[calc(50%_-_22px)] xl:bottom-0 z-20 w-full justify-between xl:w-max xl:justify-none"
-                btnStyles="bg-accent hover:bg-accent-hover text-primary text-[22px] w-[44px] h-[44px] flex justify-center items-center transition-all rounded-lg"
-              />
             </Swiper>
+
+            {/* Slider Navigation - Posicionado debajo del marco */}
+            <div className="flex justify-center mt-6 z-30">
+              <WorkSliderBtns
+                containerStyles="flex gap-4"
+                btnStyles="bg-accent hover:bg-accent-hover text-primary text-[22px] w-[50px] h-[50px] flex justify-center items-center transition-all rounded-lg shadow-lg hover:shadow-xl hover:scale-105"
+                iconsStyles="text-xl"
+              />
+            </div>
           </div>
         </div>
       </div>
