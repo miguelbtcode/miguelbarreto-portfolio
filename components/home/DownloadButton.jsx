@@ -4,7 +4,7 @@ import { FiDownload } from "react-icons/fi";
 import { Button } from "@/components/ui/button";
 
 const handleDownload = () => {
-  const fileUrl = "/assets/resume/cv.pdf";
+  const fileUrl = "/assets/resume/miguelbarreto-cv.pdf";
   const fileName = "cv_miguel_barreto.pdf";
 
   // Create a hidden link to download the file
