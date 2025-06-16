@@ -135,7 +135,7 @@ Para configurar el formulario de contacto, edita las variables de entorno:
 
 ```bash
 # .env.local
-NEXT_PUBLIC_CONTACT_EMAIL=tu-email@ejemplo.com
+NEXT_PUBLIC_CONTACT_EMAIL=mabt2206@gmail.com
 ```
 
 ## 🚀 Despliegue
@@ -185,6 +185,6 @@ Si este portfolio te ha sido útil, ¡dale una ⭐ al repositorio!
 
 <div align="center">
 
-**[🌐 Ver Portfolio](https://miguelbarreto.dev)** • **[📧 Contacto](mailto:mabt2206@gmail.com)** • **[💼 LinkedIn](https://linkedin.com/in/miguelbarreto-dev)**
+**[🌐 Ver Portfolio](https://miguelbarretodev.vercel.app/)** • **[📧 Contacto](mailto:mabt2206@gmail.com)** • **[💼 LinkedIn](https://www.linkedin.com/in/miguelbarretotorres/)**
 
 </div>
