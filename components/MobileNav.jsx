@@ -9,6 +9,7 @@ import {
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { CiMenuFries } from "react-icons/ci";
+import { useState } from "react";
 
 const links = [
   {
@@ -35,17 +36,29 @@ const links = [
 
 const MobileNav = () => {
   const pathName = usePathname();
+  const [isOpen, setIsOpen] = useState(false);
+
+  const closeMenu = () => {
+    setIsOpen(false);
+  };
+
+  const handleLinkClick = () => {
+    setTimeout(() => {
+      closeMenu();
+    }, 150);
+  };
+
   return (
-    <Sheet>
+    <Sheet open={isOpen} onOpenChange={setIsOpen}>
       <SheetTrigger className="flex justify-center items-center">
         <CiMenuFries className="text-[32px] text-accent" />
       </SheetTrigger>
       <SheetContent className="flex flex-col">
-        {/* Título para accesibilidad */}
+        {/* Título */}
         <SheetTitle className="sr-only">Mobile Navigation</SheetTitle>
         {/* logo */}
         <div className="mt-32 mb-40 text-center text-2xl">
-          <Link href="/">
+          <Link href="/" onClick={handleLinkClick}>
             <h1 className="text-4xl font-semibold">
               Miguel<span className="text-accent">.</span>
             </h1>
@@ -58,10 +71,11 @@ const MobileNav = () => {
               <Link
                 href={link.path}
                 key={index}
+                onClick={handleLinkClick}
                 className={`${
                   link.path === pathName &&
                   "text-accent border-b-2 border-accent"
-                } text-xl capitalize hover:text-accent transition-all`}
+                } text-xl capitalize hover:text-accent transition-all duration-300 transform hover:scale-105 active:scale-95`}
               >
                 {link.name}
               </Link>
