@@ -1,4 +1,3 @@
-// components
 import Social from "@/components/Social";
 import Photo from "@/components/Photo";
 import Stats from "@/components/Stats";

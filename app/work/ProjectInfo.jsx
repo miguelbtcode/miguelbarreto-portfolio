@@ -8,7 +8,6 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 
-// Componente para badges de tecnologías
 const TechBadge = ({ tech, index }) => (
   <motion.li
     initial={{ scale: 0, opacity: 0 }}
@@ -33,7 +32,6 @@ const TechBadge = ({ tech, index }) => (
   </motion.li>
 );
 
-// Componente para botones de acción
 const ActionButton = ({ href, icon: Icon, tooltip, disabled = false }) => {
   const buttonContent = (
     <div

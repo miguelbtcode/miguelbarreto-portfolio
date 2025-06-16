@@ -10,7 +10,6 @@ import WorkSliderBtns from "@/components/WorkSliderBtns";
 import ProjectInfo from "./ProjectInfo";
 import ImageCarousel from "./ImageCarousel";
 
-// Datos de proyectos
 const projects = [
   {
     num: "01",
@@ -40,16 +39,34 @@ const projects = [
   },
 ];
 
-// Hook personalizado para manejar el estado del carrusel
-const useImageCarousel = (projects) => {
-  const [imageIndices, setImageIndices] = useState(() => {
-    const indices = {};
-    projects.forEach((_, index) => {
-      indices[index] = 0;
-    });
-    return indices;
-  });
+const CAROUSEL_CONFIG = {
+  AUTO_ROTATION_INTERVAL: 5000,
+  TRANSITION_DELAY: 400,
+  TRANSITION_CLEANUP_DELAY: 50,
+};
 
+const getSafeImageSrc = (project, imageIndex) => {
+  const fallbackImage = "/assets/work/placeholder.png";
+
+  if (!project?.images?.length) return fallbackImage;
+
+  const targetImage = project.images[imageIndex];
+  if (!targetImage?.trim()) return fallbackImage;
+
+  return targetImage;
+};
+
+const initializeImageIndices = (projects) => {
+  return projects.reduce((indices, _, index) => {
+    indices[index] = 0;
+    return indices;
+  }, {});
+};
+
+const useImageCarousel = (projects) => {
+  const [imageIndices, setImageIndices] = useState(() =>
+    initializeImageIndices(projects)
+  );
   const [isTransitioning, setIsTransitioning] = useState({});
   const [nextImageIndices, setNextImageIndices] = useState({});
   const [isAutoRotating, setIsAutoRotating] = useState(true);
@@ -60,7 +77,10 @@ const useImageCarousel = (projects) => {
       [projectIndex]: newImageIndex,
     }));
 
-    setIsTransitioning((prev) => ({ ...prev, [projectIndex]: true }));
+    setIsTransitioning((prev) => ({
+      ...prev,
+      [projectIndex]: true,
+    }));
 
     setTimeout(() => {
       setImageIndices((prev) => ({
@@ -69,30 +89,32 @@ const useImageCarousel = (projects) => {
       }));
 
       setTimeout(() => {
-        setIsTransitioning((prev) => ({ ...prev, [projectIndex]: false }));
-      }, 50);
-    }, 400);
+        setIsTransitioning((prev) => ({
+          ...prev,
+          [projectIndex]: false,
+        }));
+      }, CAROUSEL_CONFIG.TRANSITION_CLEANUP_DELAY);
+    }, CAROUSEL_CONFIG.TRANSITION_DELAY);
   }, []);
 
   const navigateImage = useCallback(
     (projectIndex, direction) => {
-      const proj = projects[projectIndex];
-      if (!proj?.images || proj.images.length <= 1) return;
+      const project = projects[projectIndex];
+      if (!project?.images?.length || project.images.length <= 1) return;
 
       const currentIndex = imageIndices[projectIndex] || 0;
-      let newIndex;
+      const maxIndex = project.images.length - 1;
 
+      let newIndex;
       switch (direction) {
         case "next":
-          newIndex =
-            currentIndex === proj.images.length - 1 ? 0 : currentIndex + 1;
+          newIndex = currentIndex === maxIndex ? 0 : currentIndex + 1;
           break;
         case "prev":
-          newIndex =
-            currentIndex === 0 ? proj.images.length - 1 : currentIndex - 1;
+          newIndex = currentIndex === 0 ? maxIndex : currentIndex - 1;
           break;
         default:
-          newIndex = direction;
+          newIndex = typeof direction === "number" ? direction : currentIndex;
       }
 
       changeImageWithFade(projectIndex, newIndex);
@@ -102,12 +124,15 @@ const useImageCarousel = (projects) => {
 
   const pauseAutoRotation = useCallback(() => {
     setIsAutoRotating(false);
-    setTimeout(() => setIsAutoRotating(true), 5000);
+    setTimeout(
+      () => setIsAutoRotating(true),
+      CAROUSEL_CONFIG.AUTO_ROTATION_INTERVAL
+    );
   }, []);
 
   const toggleAutoRotation = useCallback(() => {
-    setIsAutoRotating(!isAutoRotating);
-  }, [isAutoRotating]);
+    setIsAutoRotating((prev) => !prev);
+  }, []);
 
   return {
     imageIndices,
@@ -120,7 +145,6 @@ const useImageCarousel = (projects) => {
   };
 };
 
-// Hook para auto-rotación
 const useAutoRotation = (
   isAutoRotating,
   currentProjectIndex,
@@ -131,33 +155,14 @@ const useAutoRotation = (
     if (!isAutoRotating) return;
 
     const interval = setInterval(() => {
-      const currentProj = projects[currentProjectIndex];
-      if (currentProj?.images && currentProj.images.length > 1) {
+      const currentProject = projects[currentProjectIndex];
+      if (currentProject?.images?.length > 1) {
         navigateImage(currentProjectIndex, "next");
       }
-    }, 5000);
+    }, CAROUSEL_CONFIG.AUTO_ROTATION_INTERVAL);
 
     return () => clearInterval(interval);
   }, [isAutoRotating, currentProjectIndex, projects, navigateImage]);
-};
-
-// Utilidad para obtener imagen de forma segura
-const getSafeImageSrc = (proj, imageIndex) => {
-  if (!proj.images || proj.images.length === 0) {
-    return "/assets/work/placeholder.png";
-  }
-
-  if (imageIndex >= 0 && imageIndex < proj.images.length) {
-    const imageSrc = proj.images[imageIndex];
-    return imageSrc && imageSrc.trim() !== ""
-      ? imageSrc
-      : "/assets/work/placeholder.png";
-  }
-
-  const firstImage = proj.images[0];
-  return firstImage && firstImage.trim() !== ""
-    ? firstImage
-    : "/assets/work/placeholder.png";
 };
 
 const Work = () => {
@@ -165,6 +170,7 @@ const Work = () => {
   const [currentProjectIndex, setCurrentProjectIndex] = useState(0);
   const [swiperRef, setSwiperRef] = useState(null);
 
+  const carouselState = useImageCarousel(projects);
   const {
     imageIndices,
     isTransitioning,
@@ -173,15 +179,15 @@ const Work = () => {
     navigateImage,
     pauseAutoRotation,
     toggleAutoRotation,
-  } = useImageCarousel(projects);
+  } = carouselState;
 
-  // Hook de auto-rotación
+  // Auto-rotación
   useAutoRotation(isAutoRotating, currentProjectIndex, projects, navigateImage);
 
+  // Handlers
   const handleSlideChange = useCallback((swiper) => {
     const currentIndex = swiper.activeIndex;
-    const newProject = projects[currentIndex];
-    setProject(newProject);
+    setProject(projects[currentIndex]);
     setCurrentProjectIndex(currentIndex);
   }, []);
 
@@ -204,17 +210,17 @@ const Work = () => {
     >
       <div className="container mx-auto">
         <div className="flex flex-col xl:flex-row xl:gap-[30px]">
-          {/* Project Information */}
+          {/* Información del Proyecto */}
           <div className="w-full xl:w-[50%] xl:h-[460px] flex flex-col xl:justify-between order-2 xl:order-none">
             <ProjectInfo project={project} />
           </div>
 
-          {/* Image Carousel */}
+          {/* Carrusel de Imágenes */}
           <div className="w-full xl:w-[50%] relative">
             <Swiper
               spaceBetween={30}
               slidesPerView={1}
-              className="xl:h-[520px] mb-12"
+              className="xl:h-[520px] mb-8"
               onSlideChange={handleSlideChange}
               onSwiper={setSwiperRef}
               modules={[Navigation]}
@@ -243,14 +249,12 @@ const Work = () => {
               })}
             </Swiper>
 
-            {/* Slider Navigation - Posicionado debajo del marco */}
-            <div className="flex justify-center mt-6 z-30">
-              <WorkSliderBtns
-                containerStyles="flex gap-4"
-                btnStyles="bg-accent hover:bg-accent-hover text-primary text-[22px] w-[50px] h-[50px] flex justify-center items-center transition-all rounded-lg shadow-lg hover:shadow-xl hover:scale-105"
-                iconsStyles="text-xl"
-              />
-            </div>
+            {/* Controles de Navegación */}
+            <WorkSliderBtns
+              containerStyles="flex gap-2 justify-center xl:justify-end z-20"
+              btnStyles="bg-accent hover:bg-accent-hover text-primary text-[18px] w-[40px] h-[40px] flex justify-center items-center transition-all rounded-md shadow-lg"
+              iconsStyles=""
+            />
           </div>
         </div>
       </div>
