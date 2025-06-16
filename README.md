@@ -1,36 +1,190 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 🚀 Miguel Barreto - Portfolio
 
-## Getting Started
+> Fullstack Developer especializado en .NET Core, React y arquitecturas Cloud
 
-First, run the development server:
+![Portfolio Preview](https://img.shields.io/badge/Status-Live-brightgreen) ![Next.js](https://img.shields.io/badge/Next.js-14-black) ![TypeScript](https://img.shields.io/badge/TypeScript-5-blue) ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3-38B2AC)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## ✨ Características
+
+- 🎨 **Diseño Moderno** - UI elegante con animaciones fluidas usando Framer Motion
+- 📱 **Completamente Responsive** - Optimizado para todos los dispositivos
+- 🌙 **Modo Oscuro** - Tema dark con colores accent personalizados
+- 🖼️ **Galería Interactiva** - Carrusel de imágenes con navegación suave
+- 📧 **Formulario de Contacto** - Sistema de mensajería integrado
+- ⚡ **Performance Optimizada** - Carga rápida y SEO optimizado
+- 🎯 **Animaciones Avanzadas** - Transiciones y efectos visuales atractivos
+
+## 🛠️ Tecnologías
+
+### Frontend
+
+- **Next.js 14** - Framework React con SSR
+- **TypeScript** - Tipado estático para mejor desarrollo
+- **Tailwind CSS** - Utility-first CSS framework
+- **Framer Motion** - Librería de animaciones
+- **Swiper.js** - Carrusel de componentes moderno
+
+### UI/UX
+
+- **Lucide React** - Iconos modernos y consistentes
+- **React Icons** - Amplia colección de iconos
+- **Custom Components** - Componentes reutilizables diseñados desde cero
+
+### Development Tools
+
+- **ESLint & Prettier** - Linting y formateo de código
+- **React Hook Form** - Manejo eficiente de formularios
+- **Responsive Design** - Mobile-first approach
+
+## 🚀 Inicio Rápido
+
+### Prerrequisitos
+
+- Node.js 18+
+- npm, yarn, pnpm o bun
+
+### Instalación
+
+1. **Clona el repositorio**
+
+   ```bash
+   git clone https://github.com/miguelbtcode/portfolio.git
+   cd portfolio
+   ```
+
+2. **Instala las dependencias**
+
+   ```bash
+   npm install
+   # o
+   yarn install
+   # o
+   pnpm install
+   ```
+
+3. **Ejecuta el servidor de desarrollo**
+
+   ```bash
+   npm run dev
+   # o
+   yarn dev
+   # o
+   pnpm dev
+   ```
+
+4. **Abre tu navegador**
+
+   Visita [http://localhost:3000](http://localhost:3000) para ver el resultado.
+
+## 📁 Estructura del Proyecto
+
+```
+portfolio/
+├── 📂 app/
+│   ├── 📂 work/              # Página de proyectos
+│   ├── 📂 services/          # Página de servicios
+│   ├── 📂 resume/           # Página de currículum
+│   ├── 📂 contact/          # Página de contacto
+│   └── 📄 layout.js         # Layout principal
+├── 📂 components/
+│   ├── 📂 ui/               # Componentes de UI base
+│   ├── 📄 Header.jsx        # Navegación principal
+│   ├── 📄 PageTransition.jsx # Transiciones de página
+│   └── 📄 StairTransition.jsx # Efectos de transición
+├── 📂 lib/                  # Utilidades y configuraciones
+├── 📂 public/
+│   └── 📂 assets/           # Imágenes y recursos estáticos
+└── 📄 tailwind.config.js    # Configuración de Tailwind
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🎨 Personalización
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+### Colores Accent
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+El portfolio usa un sistema de colores accent personalizable. Para cambiar el color principal:
 
-## Learn More
+```css
+/* globals.css */
+:root {
+  --accent: 0 255 153; /* Verde por defecto */
+}
+```
 
-To learn more about Next.js, take a look at the following resources:
+### Agregar Proyectos
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Edita el archivo `app/work/page.jsx` para agregar nuevos proyectos:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```javascript
+const projects = [
+  {
+    num: "02",
+    category: "Frontend",
+    title: "Tu Nuevo Proyecto",
+    description: "Descripción del proyecto...",
+    stack: [{ name: "React" }, { name: "TypeScript" }],
+    images: ["/assets/work/proyecto/imagen.png"],
+    live: "https://tu-proyecto.com",
+    github: "https://github.com/tu-usuario/proyecto",
+  },
+];
+```
 
-## Deploy on Vercel
+## 📧 Configuración de Contacto
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Para configurar el formulario de contacto, edita las variables de entorno:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+# .env.local
+NEXT_PUBLIC_CONTACT_EMAIL=tu-email@ejemplo.com
+```
+
+## 🚀 Despliegue
+
+### Vercel (Recomendado)
+
+1. Conecta tu repositorio con [Vercel](https://vercel.com)
+2. Las configuraciones se detectan automáticamente
+3. ¡Despliega con un clic!
+
+### Otros Proveedores
+
+```bash
+# Build para producción
+npm run build
+
+# Inicia el servidor de producción
+npm start
+```
+
+## 📈 Performance
+
+- ⚡ **Lighthouse Score**: 95+ en todas las métricas
+- 🎯 **Core Web Vitals**: Optimizado para UX
+- 📱 **Mobile-First**: Diseño responsive desde el inicio
+- 🖼️ **Imágenes Optimizadas**: Next.js Image optimization
+
+## 🤝 Contribuciones
+
+Las contribuciones son bienvenidas. Para cambios importantes:
+
+1. Fork el proyecto
+2. Crea una rama feature (`git checkout -b feature/AmazingFeature`)
+3. Commit tus cambios (`git commit -m 'Add AmazingFeature'`)
+4. Push a la rama (`git push origin feature/AmazingFeature`)
+5. Abre un Pull Request
+
+## 📄 Licencia
+
+Este proyecto está bajo la Licencia MIT. Ver `LICENSE` para más detalles.
+
+## 🌟 ¿Te gusta el proyecto?
+
+Si este portfolio te ha sido útil, ¡dale una ⭐ al repositorio!
+
+---
+
+<div align="center">
+
+**[🌐 Ver Portfolio](https://miguelbarreto.dev)** • **[📧 Contacto](mailto:mabt2206@gmail.com)** • **[💼 LinkedIn](https://linkedin.com/in/miguelbarreto-dev)**
+
+</div>
