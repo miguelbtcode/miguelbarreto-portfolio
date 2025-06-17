@@ -331,7 +331,7 @@ export const recommendations = {
       id: 2,
       name: "Angel Vega",
       position: "Backend Developer",
-      company: "Kreante Technological Solutions",
+      company: "Kreante Tech. Solutions",
       image: "/assets/recommendations/angel-vega.jpeg",
       text: "Miguel es un desarrollador de software competente y colaborador. Durante su tiempo en nuestro equipo, demostró habilidades sólidas en el desarrollo de software y una buena capacidad para resolver problemas. Su dedicación y profesionalismo son notables. Lo recomiendo para proyectos de desarrollo de software donde se valore la colaboración y la resolución de problemas.",
       linkedin: "https://www.linkedin.com/in/angel-vega-s/",
