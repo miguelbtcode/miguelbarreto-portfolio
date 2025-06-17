@@ -13,7 +13,7 @@ import {
 } from "lucide-react";
 
 import { certifications } from "@/app/data/resume.data";
-import { TabsContent } from "@/components/ui/tabs";
+import AnimatedTabContent from "@/utils/AnimatedTabContent";
 
 const Certifications = () => {
   const [expandedCategories, setExpandedCategories] = useState({});
@@ -50,7 +50,7 @@ const Certifications = () => {
   };
 
   return (
-    <TabsContent value="certifications" className="w-full">
+    <AnimatedTabContent value="certifications">
       <motion.div
         initial={{ opacity: 0 }}
         animate={{
@@ -244,7 +244,7 @@ const Certifications = () => {
           </motion.div>
         </div>
       </motion.div>
-    </TabsContent>
+    </AnimatedTabContent>
   );
 };
 

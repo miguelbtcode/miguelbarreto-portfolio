@@ -1,10 +1,10 @@
-import { TabsContent } from "@/components/ui/tabs";
 import { recommendations } from "@/app/data/resume.data";
 import RecommendationCard from "./RecommendationCard";
+import AnimatedTabContent from "@/utils/AnimatedTabContent";
 
 const Recommendations = () => {
   return (
-    <TabsContent value="recommendations" className="w-full">
+    <AnimatedTabContent value="recommendations">
       <div className="flex flex-col gap-8">
         {/* Header */}
         <div className="flex flex-col gap-4 text-center xl:text-left">
@@ -25,7 +25,7 @@ const Recommendations = () => {
           ))}
         </div>
       </div>
-    </TabsContent>
+    </AnimatedTabContent>
   );
 };
 

@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import { TabsContent } from "@/components/ui/tabs";
 import {
   UserIcon,
   MapPinIcon,
@@ -11,13 +10,16 @@ import {
 } from "lucide-react";
 
 import { about } from "@/app/data/resume.data";
+import AnimatedTabContent from "@/utils/AnimatedTabContent";
 
 const About = () => {
-  const linkedinProfile =
-    "https://www.linkedin.com/in/miguel-barreto-torres-2b6b8a1b6/";
+  const linkedinProfile = "https://www.linkedin.com/in/miguelbarretotorres/";
 
   return (
-    <TabsContent value="about" className="w-full text-center xl:text-left">
+    <AnimatedTabContent
+      value="about"
+      className="w-full text-center xl:text-left"
+    >
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
@@ -140,7 +142,7 @@ const About = () => {
           </div>
         </motion.div>
       </div>
-    </TabsContent>
+    </AnimatedTabContent>
   );
 };
 
