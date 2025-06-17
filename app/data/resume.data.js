@@ -341,3 +341,56 @@ export const recommendations = {
     },
   ],
 };
+
+export const certifications = {
+  title: "Mis Certificaciones 🏆",
+  description:
+    "Certificaciones técnicas que respaldan mi experiencia profesional y continuo aprendizaje.",
+  categories: [
+    {
+      name: "Cloud Computing",
+      icon: "☁️",
+      items: [
+        {
+          name: "AWS Solutions Architect Associate",
+          provider: "Amazon Web Services",
+          date: "2024",
+          badge: "/assets/certificates/aws-sa.png",
+          credentialId: "ABC123",
+          verificationUrl: "https://...",
+          skills: ["AWS", "Cloud Architecture", "EC2", "S3"],
+        },
+        // más certificaciones AWS/Azure
+      ],
+    },
+    {
+      name: "Development",
+      icon: "💻",
+      items: [
+        {
+          name: "React Advanced Concepts",
+          provider: "Udemy",
+          date: "2023",
+          badge: "/assets/certificates/react-advanced.jpg",
+          duration: "40 horas",
+          skills: ["React", "Hooks", "Context API"],
+        },
+        // más certificaciones de desarrollo
+      ],
+    },
+    {
+      name: "IT & Infrastructure",
+      icon: "🔧",
+      items: [
+        // Certificaciones de TI
+      ],
+    },
+    {
+      name: "Soft Skills",
+      icon: "🤝",
+      items: [
+        // Certificaciones de liderazgo, comunicación, etc.
+      ],
+    },
+  ],
+};

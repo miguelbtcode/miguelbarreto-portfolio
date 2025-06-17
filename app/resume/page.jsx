@@ -7,6 +7,7 @@ import {
   Skills,
   About,
   Recommendations,
+  Certifications,
 } from "@/components/resume";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
@@ -29,6 +30,7 @@ const Resume = () => {
             <TabsTrigger value="experience">Experiencia</TabsTrigger>
             <TabsTrigger value="education">Educación</TabsTrigger>
             <TabsTrigger value="skills">Habilidades</TabsTrigger>
+            <TabsTrigger value="certifications">Certificaciones</TabsTrigger>
             <TabsTrigger value="recommendations">Recomendaciones</TabsTrigger>
             <TabsTrigger value="about">Sobre Mí</TabsTrigger>
           </TabsList>
@@ -41,6 +43,8 @@ const Resume = () => {
             <Education />
             {/* skills */}
             <Skills />
+            {/* certifications */}
+            <Certifications />
             {/* recommendations */}
             <Recommendations />
             {/* about */}
